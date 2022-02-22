@@ -1,0 +1,6 @@
+**/checkpoints
+**/output
+**/stimuli
+**/data
+GANalyze/tensorflow/assessors/aestheticsnet_state_dict.p
+GANalyze/tensorflow/generators/biggan-256.pth
