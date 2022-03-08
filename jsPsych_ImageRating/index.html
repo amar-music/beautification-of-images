@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ImageRating</title>
+    <script src="jspsych-6.3.1/jspsych.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-external-html.js"></script>
+    <script src="jspsych-image-comparison.js"></script>
+    <script src="labels.js"></script>
+    <link href="jspsych-6.3.1/css/jspsych.css" rel="stylesheet" type="text/css">
+</head>
+<body></body>
+<script>
+    /* Informed consent */
+    var check_consent = function(elem) {
+        if (document.getElementById('consent_checkbox').checked) {
+            return true;
+        }
+        else {
+            alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.'")
+            return false;
+        }
+        return false;
+    }
+
+    /* Present informed consent page */
+    var informed_consent = {
+        type:'external-html',
+        url: "informed_consent.html",
+        cont_btn: "start",
+        check_fn: check_consent,
+        on_finish: function(){
+            starting_time = jsPsych.totalTime()
+        }
+    }
+
+    /* Break screen */
+    var break_screen = {
+        type: "html-keyboard-response",
+        stimulus: `You are at the halfway point, you may take short break. <p>When you're ready, press the <b>spacebar</b> to continue with the remaining 5 minutes.</p>`,
+        choices: [' '],
+        on_finish: function(){
+            break_time = jsPsych.totalTime()
+        }
+    }
+
+    /* Time conditions */
+    var break_shown = false
+
+    var time_condition = {
+        timeline: [break_screen],
+        conditional_function: function() {
+            if (jsPsych.totalTime() >= ((300*1000) + starting_time) && break_shown == false){
+                break_shown = true
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+
+    /* Assign random subject ID */
+    var subject_id = jsPsych.randomization.randomID(15)
+    jsPsych.data.addProperties({
+        subject_id: subject_id,
+    })
+
+    /* Generate block */
+    var all_cats = labels
+    var cat_no = jsPsych.randomization.sampleWithoutReplacement(all_cats, all_cats.length)
+    var all_seeds = [0, 1, 2]
+    var all_imgs = [0, 20, 40, 60, 70, 80, 90, 94, 98, 99, 101, 102, 106, 110, 120, 130, 140, 160, 180, 200]
+    var all_positions = ["l", "r"]
+
+    /* Select stimuli */
+    var timeline_variables = []
+    var image_list = []
+
+    for (let i_cat = 0; i_cat < cat_no.length; i_cat++) {
+        var picked_seed = jsPsych.randomization.sampleWithoutReplacement(all_seeds, 1)[0]
+        var picked_img = jsPsych.randomization.sampleWithoutReplacement(all_imgs, 1)[0]
+        var picked_position = jsPsych.randomization.sampleWithoutReplacement(all_positions, 1)[0]
+        timeline_variables.push({
+            category: cat_no[i_cat]['cat'], 
+            wordnet_id: cat_no[i_cat]['wordnet_id'], 
+            imagenet_category: cat_no[i_cat]['imagenet_category'], 
+            label_1: cat_no[i_cat]['label_1'],
+            label_2: cat_no[i_cat]['label_2'],
+            seed: picked_seed, 
+            image_number: picked_img, 
+            base_position: picked_position
+        })
+        image_list.push("stimuli/cat" + cat_no[i_cat]['cat'] + "_seed" + picked_seed + "_img100.jpg") // preload all base images (img100) from picked seeds
+        image_list.push("stimuli/cat" + cat_no[i_cat]['cat'] + "_seed" + picked_seed + "_img" + picked_img + ".jpg"); // preload all comp images from picked seeds
+    }
+
+    /* Define trial */
+    var trial = {
+        type: "image-comparison",
+        category: jsPsych.timelineVariable('category'),
+        seed: jsPsych.timelineVariable('seed'),
+        image_number: jsPsych.timelineVariable('image_number'),
+        base_position: jsPsych.timelineVariable('base_position'),
+        wordnet_id: jsPsych.timelineVariable('wordnet_id'),
+        imagenet_category: jsPsych.timelineVariable('imagenet_category'),
+        label_1: jsPsych.timelineVariable('label_1'),
+        label_2: jsPsych.timelineVariable('label_2'),
+        choices: ['f', 'j']
+    }
+
+    /* Preload all stimuli*/
+    var preload = {
+        type: "preload",
+        auto_preload: true,
+        images: image_list
+    }
+
+    /* Start the procedure of trials */
+    var test_procedure = {
+        timeline: [time_condition, trial],
+        timeline_variables: timeline_variables,
+        on_finish: function() {
+            if (break_shown == true) {
+                if (jsPsych.totalTime() >= ((300*1000) + break_time)){
+                    jsPsych.endCurrentTimeline()
+                }
+            }
+        }
+    }
+
+    /* Display ending screen */
+    var ending = {
+        type: "html-keyboard-response",
+        stimulus: `<p>Thank you for your participation, you may now close your browser.</p>`,
+        choices: [jsPsych.NO_KEYS],
+        on_start: function() {
+            saveJsonData() // SAVE DATA
+        }
+    }
+
+    /* Save data to JSON file */
+    function saveJsonData(){
+        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsPsych.data.get().json())
+        let downloadAnchorNode = document.createElement('a')
+        downloadAnchorNode.setAttribute("href",     dataStr)
+        downloadAnchorNode.setAttribute("download", "experiment_data.json")
+        document.body.appendChild(downloadAnchorNode) // required for firefox
+        downloadAnchorNode.click()
+        downloadAnchorNode.remove()
+    }
+
+    jsPsych.init({
+        timeline: [informed_consent, preload, test_procedure, ending],
+    })
+</script>
+</html>
