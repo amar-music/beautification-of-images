@@ -6,12 +6,38 @@
     <script src="jspsych-6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-external-html.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-survey-likert.js"></script>
     <script src="jspsych-image-comparison.js"></script>
     <script src="labels.js"></script>
     <link href="jspsych-6.3.1/css/jspsych.css" rel="stylesheet" type="text/css">
 </head>
 <body></body>
 <script>
+
+    /* Questionnaire */
+    var likert_scale = [
+        "Strongly Disagree",
+        "Disagree",
+        "Neutral",
+        "Agree",
+        "Strongly Agree"
+    ];
+
+    var questions = {
+        type: "survey-likert",
+        preamble: "<h3><p>Short questionnaire before the experiment</p></h3>  <p><h1>In general, when I view art...</h1></p>",
+        questions: [
+            {prompt: "I experience a wide range of emotions.", name: "emotional", labels: likert_scale},
+            {prompt: "I compare the past culture of the art with present-day culture.", name: "cultural", labels: likert_scale},
+            {prompt: "The composition of a work of art is important to me.", name: "perceptual", labels: likert_scale},
+            {prompt: "I try to understand the work completely.", name: "understanding", labels: likert_scale},
+            {prompt: "I have a clear idea of what to look for when viewing the work of art.", name: "flow-proximal", labels: likert_scale},
+            {prompt: "I lose track of time when I view the work of art.", name: "flow-experience", labels: likert_scale},
+        ],
+        on_finish: function(){
+            starting_time = jsPsych.totalTime()
+        }
+    }
     /* Informed consent */
     var check_consent = function(elem) {
         if (document.getElementById('consent_checkbox').checked) {
@@ -29,10 +55,7 @@
         type:'external-html',
         url: "informed_consent.html",
         cont_btn: "start",
-        check_fn: check_consent,
-        on_finish: function(){
-            starting_time = jsPsych.totalTime()
-        }
+        check_fn: check_consent
     }
 
     /* Break screen */
@@ -51,7 +74,7 @@
     var time_condition = {
         timeline: [break_screen],
         conditional_function: function() {
-            if (jsPsych.totalTime() >= ((300*1000) + starting_time) && break_shown == false){
+            if (jsPsych.totalTime() >= ((60*1000) + starting_time) && break_shown == false){
                 break_shown = true
                 return true
             } else {
@@ -60,11 +83,16 @@
         }
     }
 
-    /* Assign random subject ID */
-    var subject_id = jsPsych.randomization.randomID(15)
+    /* Capture info from Prolific */
+    var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+    var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+
     jsPsych.data.addProperties({
         subject_id: subject_id,
-    })
+        study_id: study_id,
+        session_id: session_id
+    });
 
     /* Generate block */
     var all_cats = labels
@@ -122,7 +150,7 @@
         timeline_variables: timeline_variables,
         on_finish: function() {
             if (break_shown == true) {
-                if (jsPsych.totalTime() >= ((300*1000) + break_time)){
+                if (jsPsych.totalTime() >= ((60*1000) + break_time)){
                     jsPsych.endCurrentTimeline()
                 }
             }
@@ -132,7 +160,8 @@
     /* Display ending screen */
     var ending = {
         type: "html-keyboard-response",
-        stimulus: `<p>Thank you for your participation, you may now close your browser.</p>`,
+        stimulus: `<p>Thank you for your participation!</p>
+        <p><a href="https://app.prolific.co/submissions/complete?cc=1C13FAAE">Click here to return to Prolific and complete the study</a>.</p>`,
         choices: [jsPsych.NO_KEYS],
         on_start: function() {
             saveJsonData() // SAVE DATA
@@ -151,7 +180,7 @@
     }
 
     jsPsych.init({
-        timeline: [informed_consent, preload, test_procedure, ending],
+        timeline: [questions, informed_consent, preload, test_procedure, ending],
     })
 </script>
 </html>
