@@ -74,7 +74,7 @@
     var time_condition = {
         timeline: [break_screen],
         conditional_function: function() {
-            if (jsPsych.totalTime() >= ((60*1000) + starting_time) && break_shown == false){
+            if (jsPsych.totalTime() >= ((300*1000) + starting_time) && break_shown == false){
                 break_shown = true
                 return true
             } else {
@@ -150,7 +150,7 @@
         timeline_variables: timeline_variables,
         on_finish: function() {
             if (break_shown == true) {
-                if (jsPsych.totalTime() >= ((60*1000) + break_time)){
+                if (jsPsych.totalTime() >= ((300*1000) + break_time)){
                     jsPsych.endCurrentTimeline()
                 }
             }
