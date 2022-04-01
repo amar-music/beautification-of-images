@@ -1,6 +1,7 @@
 **/checkpoints
 **/output
 **/data
+**/stimuli
 **/.vs
 **/.idea
 GANalyze/tensorflow/assessors/aestheticsnet_state_dict.p
