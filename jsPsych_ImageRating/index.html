@@ -27,12 +27,12 @@
         type: "survey-likert",
         preamble: "<h3><p>Short questionnaire before the experiment</p></h3>  <p><h1>In general, when I view art...</h1></p>",
         questions: [
-            {prompt: "I experience a wide range of emotions.", name: "emotional", labels: likert_scale},
-            {prompt: "I compare the past culture of the art with present-day culture.", name: "cultural", labels: likert_scale},
-            {prompt: "The composition of a work of art is important to me.", name: "perceptual", labels: likert_scale},
-            {prompt: "I try to understand the work completely.", name: "understanding", labels: likert_scale},
-            {prompt: "I have a clear idea of what to look for when viewing the work of art.", name: "flow-proximal", labels: likert_scale},
-            {prompt: "I lose track of time when I view the work of art.", name: "flow-experience", labels: likert_scale},
+            {prompt: "I experience a wide range of emotions.", name: "emotional", labels: likert_scale, required: true},
+            {prompt: "I compare the past culture of the art with present-day culture.", name: "cultural", labels: likert_scale, required: true},
+            {prompt: "The composition of a work of art is important to me.", name: "perceptual", labels: likert_scale, required: true},
+            {prompt: "I try to understand the work completely.", name: "understanding", labels: likert_scale, required: true},
+            {prompt: "I have a clear idea of what to look for when viewing the work of art.", name: "flow-proximal", labels: likert_scale, required: true},
+            {prompt: "I lose track of time when I view the work of art.", name: "flow-experience", labels: likert_scale, required: true},
         ],
         on_finish: function(){
             starting_time = jsPsych.totalTime()
