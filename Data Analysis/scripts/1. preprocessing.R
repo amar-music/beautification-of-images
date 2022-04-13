@@ -10,7 +10,7 @@ library("dplyr")
 
 
 # Load and clean dataframe ------------------------------------------------
-df <- read_csv('extraction/test2.csv')
+df <- read_csv('extraction/test3.csv')
 names(df)[c(1, 8, 9, 11, 12, 13, 16)] <- c(
   'trial', 'base', 'img', 'c_key', 'u_key', 'cor', 'sub')
 df$diff <- abs(df$alpha) # difference as number

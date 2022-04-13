@@ -8,7 +8,7 @@ import os
 import json
 import pandas as pd
 
-root_folder = r'C:\Users\amarm\Documents\GitHub\beautification-of-images\Data Analysis\extraction'
+root_folder = r''
 
 data_filename = 'data_table.json'
 
@@ -29,6 +29,12 @@ for row in data:
     row_timestamp = row[2]
     
     json_data = json.loads(row_data)
+    aeq = json_data[0]['response']
+    aeq_total = []
+    for item in aeq:
+        aeq_total.append(aeq[item])
+    #aeq_sum = sum(list(aeq_total))
+    aeq_sum = 0
     i = 1
 
     # Here you can extract data from the individual trials
@@ -52,7 +58,15 @@ for row in data:
                 trial['rt'],
                 trial['time_elapsed'],
                 trial['subject_id'],
-                row_timestamp
+                aeq['emotional'],
+                aeq['cultural'],
+                aeq['perceptual'],
+                aeq['understanding'],
+                aeq['flow-proximal'],
+                aeq['flow-experience'],
+                aeq_sum,
+                row_timestamp,
+
             ]
             )
             dataframe = pd.DataFrame(
@@ -73,10 +87,17 @@ for row in data:
                     'rt',
                     'time_elapsed',
                     'subject_id',
+                    'emotional',
+                    'cultural',
+                    'perceptual',
+                    'understanding',
+                    'flow-proximal',
+                    'flow-experience',
+                    'aeq_total',
                     'date'
                     ])
             i += 1
         pass
     print(subjectno)
     subjectno += 1
-dataframe.to_csv('test2.csv', index=False)
+dataframe.to_csv('test3.csv', index=False)
