@@ -17,6 +17,11 @@ df$diff <- abs(df$alpha) # difference as number
 #df$diff <- as.factor(abs(data$alpha)) # difference as factor
 #df$alpha <- as.factor(data$alpha) # alpha as factor
 
+# SELECT ONLY TRIALS AFTER 23162 (last old trial)
+df <- df[23163:(nrow(df)),]
+df$aeq_total <- (df$emotional + df$cultural + df$perceptual + df$understanding
+                 + df$`flow-proximal` + df$`flow-experience`)
+
 ## Participants to exclude ----
 bad_subs <- readLines("filter_participants.txt")
 df <- df[!(df$sub %in% bad_subs),]
@@ -88,6 +93,7 @@ alpha_correct.total <- df %>%
             n = n(), wrong = n-correct) 
 
 
+length(unique(df$seed))
 
 
 
