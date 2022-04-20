@@ -12,21 +12,21 @@
   
 
 ## Total plot
-ggplot(diff_correct.total, aes(diff, prop)) +
+ggplot(diff_correct.total, aes(diff, acc)) +
   geom_line(col="blue", size=1.5) +
   geom_point(size=3) + 
   geom_hline(yintercept=c(0.5, 1)) +
   ylab("Prop. of correct responses") +
   theme_apa()
 
-ggplot(alpha_correct.total, aes(alpha, prop)) +
+ggplot(alpha_correct.total, aes(alpha, acc)) +
   geom_line(col="blue", size=1.5) +
   geom_point(size=3) + 
   geom_hline(yintercept=c(0.5, 1)) +
   ylab("Prop. of correct responses") +
   theme_apa()
 
-
+plot()
 #
 
 
