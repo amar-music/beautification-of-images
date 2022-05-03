@@ -10,7 +10,7 @@ import pandas as pd
 
 root_folder = r''
 
-data_filename = 'data_table2.json'
+data_filename = 'data_table3.json'
 
     
 # Parse the data file
@@ -20,10 +20,10 @@ f = open(os.path.join(root_folder, data_filename))
 data = json.load(f)
 f.close()
 
-df = []
 subjectno = 0
 
 for row in data:
+    df = []
     row_id = row[0]
     row_data = row[1]
     row_timestamp = row[2]
@@ -33,7 +33,6 @@ for row in data:
     aeq_total = []
     for item in aeq:
         aeq_total.append(aeq[item])
-    #aeq_sum = sum(list(aeq_total))
     aeq_sum = 0
     i = 1
 
@@ -70,34 +69,35 @@ for row in data:
             ]
             )
             dataframe = pd.DataFrame(
-                df, columns=[
-                    'trial_index',
-                    'cat_no',
-                    'wordnet_id',
-                    'imagenet_label',
-                    'label_1',
-                    'label_2',
-                    'seed',
-                    'base_position',
-                    'image_number',
-                    'alpha',
-                    'correct_key',
-                    'user_key',
-                    'eval',
-                    'rt',
-                    'time_elapsed',
-                    'subject_id',
-                    'emotional',
-                    'cultural',
-                    'perceptual',
-                    'understanding',
-                    'flow-proximal',
-                    'flow-experience',
-                    'aeq_total',
-                    'date'
-                    ])
+                df)
+                # columns=[
+                #     'trial_index',
+                #     'cat_no',
+                #     'wordnet_id',
+                #     'imagenet_label',
+                #     'label_1',
+                #     'label_2',
+                #     'seed',
+                #     'base_position',
+                #     'image_number',
+                #     'alpha',
+                #     'correct_key',
+                #     'user_key',
+                #     'eval',
+                #     'rt',
+                #     'time_elapsed',
+                #     'subject_id',
+                #     'emotional',
+                #     'cultural',
+                #     'perceptual',
+                #     'understanding',
+                #     'flow-proximal',
+                #     'flow-experience',
+                #     'aeq_total',
+                #     'date'
+                # ])
             i += 1
         pass
     print(subjectno)
     subjectno += 1
-dataframe.to_csv('test3.csv', index=False)
+    dataframe.to_csv('test3.csv', index=False, header=False,  mode='a')
