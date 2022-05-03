@@ -18,7 +18,8 @@ df$diff <- abs(df$alpha) # difference as number
 #df$alpha <- as.factor(data$alpha) # alpha as factor
 
 # SELECT ONLY TRIALS AFTER 23162 (last old trial)
-df <- df[25920:(nrow(df)),]
+#df <- df[25920:(nrow(df)),]
+df <- df[59032:(nrow(df)),]
 df$aeq_total <- (df$emotional + df$cultural + df$perceptual + df$understanding
                  + df$`flow-proximal` + df$`flow-experience`)
 
@@ -69,7 +70,7 @@ for (i in 1:length(all_key_presses$u_key)){
 }
 alt_subs <- data.frame(all_key_presses, rep_alt)
 alt_subs.agg <- aggregate(alt_subs$rep_alt, by=list(alt_subs$sub), FUN=mean)
-print(alt_subs.agg[alt_subs.agg$x < 0.4,]$Group.1)
+print(alt_subs.agg[alt_subs.agg$x < 0.3,]$Group.1)
 
 
 ## Performance at chance level ----
@@ -84,9 +85,9 @@ hist(rt_subs$x)
 print(rt_subs[rt_subs$x < 500,])
 
 
-## Identify participants with < 100 trials ----
+## Identify participants with < 50 trials ----
 sub_trials <- data.frame(sort(table(df$sub)))
-sub_trials[sub_trials$Freq < 100,]
+sub_trials[sub_trials$Freq < 50,]
 
 
 ## Check total time elapsed ----
