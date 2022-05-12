@@ -12,41 +12,32 @@
   
 
 ## Total plot
-ggplot(diff_correct.total, aes(diff, acc)) +
-  geom_line(size=1.5) +
-  geom_point(size=3) + 
+ggplot(diff_correct.total, aes(x = diff, y = acc)) +
+  geom_line() +
+  geom_point() + 
+  geom_errorbar(aes(x = diff, ymin = lower_ci, ymax = upper_ci), width=0.0025) + 
   geom_hline(yintercept=c(0.5, 1)) +
   ylab("Prop. of correct responses") +
+  xlab("Difference") +
   theme_apa()
 
-ggplot(alpha_correct.total, aes(alpha, acc)) +
-  geom_line(size=1.5) +
-  geom_point(size=3) + 
+
+ggplot(alpha_correct.total, aes(x = alpha, y = acc)) +
+  geom_line() +
+  geom_point() + 
+  geom_errorbar(aes(x = alpha, ymin = lower_ci, ymax = upper_ci), width=0.0025) + 
   geom_hline(yintercept=c(0.5, 1)) +
   ylab("Prop. of correct responses") +
+  xlab("Alpha") +
   theme_apa()
 
-plot()
-#
 
 
 
+linear_model <- lm(acc ~ diff, data = diff_correct.indiv)
+summary(linear_model)
 
 
-# Evaluate participants ---------------------------------------------------
-## Plot indiviual L/R responses
-par(mfrow = c(2, 3))
-for (subject in subs) {
-  plot((jitter(u_key, 0.25)) ~ trial, data = df[df$sub == subject, ])
-  title(paste(subject, "- left/right"))
-}
-
-## Plot correct responses over trials
-par(mfrow = c(2, 3))
-for (subject in subs) {
-  plot((jitter(cor, 0.25)) ~ trial, data = df[df$sub == subject, ])
-  title(paste(subject, "- correct/incorrect"))
-}
 
 ## Mean RT over trials
 ggplot(df[df$rt < 15000,], aes(x = trial, y = rt)) +

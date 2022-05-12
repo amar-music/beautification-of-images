@@ -10,7 +10,7 @@ import pandas as pd
 
 root_folder = r''
 
-data_filename = 'data_table3.json'
+data_filename = 'data_table4.json'
 
     
 # Parse the data file
@@ -100,4 +100,4 @@ for row in data:
         pass
     print(subjectno)
     subjectno += 1
-    dataframe.to_csv('test3.csv', index=False, header=False,  mode='a')
+    dataframe.to_csv('test4.csv', index=False, header=False,  mode='a')
