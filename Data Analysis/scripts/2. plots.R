@@ -54,3 +54,14 @@ ggplot(df, aes(x = trial, y = time_elapsed)) +
   theme(legend.position = "none")
 
 
+
+
+# World Map ---------------------------------------------------------------
+ggplot(nationalities) +
+  geom_map(aes(map_id = Var1, fill = Freq), map = world_map) +
+  geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'black', fill = NA) +
+  expand_limits(x = world_map$long, y = world_map$lat) +
+  #scale_fill_viridis(option='magma') +
+  scale_fill_distiller(type='seq', direction=1, palette='YlOrRd') +
+  theme_void()
+
