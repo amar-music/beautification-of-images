@@ -84,7 +84,7 @@ aesthetic_experience =~ emotional + cultural + perceptual + understanding + `flo
 aesthetic_experience ~ sex + age + nationality
 
 ## Add effects on judgement
-cor ~ aesthetic_experience + sex + age + nationality
+cor ~ aesthetic_experience + sex + age
 '
 
 
@@ -93,5 +93,20 @@ graph_sem(fit_aeq_mimic, standardized=TRUE)
 summary(fit_aeq_mimic, standardized=TRUE)
 
 
-res <- model.matrix(~nationality, data=df3)
+fitm_aeq_mimic <-  fitMeasures(fit_aeq_mimic, c("logl",
+                                              "AIC", 
+                                              "BIC", 
+                                              "chisq",
+                                              "df",
+                                              "pvalue",
+                                              "cfi",
+                                              "tli",
+                                              "rmsea"), 
+                                 output = "matrix")
+
+fitm_aeq_mimic
+
+
+res <- model.matrix(~nationality, data=df3.2)
 head(res[, -1])
+
