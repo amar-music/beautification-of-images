@@ -117,11 +117,17 @@ df2[df2 == 'DATA EXPIRED'] <- NA
 df3 <- na.omit(df2)
 df3$sex <- ifelse(df3$sex=="Male",1,0) # male=1, female=0
 df3$sex <- as.factor(df3$sex)
-df3$nationality <- as.factor(df3$nationality)
+#df3$nationality <- as.factor(df3$nationality)
 
 df3.2 <- subset(df3, select = c(
   'emotional', 'cultural', 'perceptual', 'understanding', 'flow-proximal', 
   'flow-experience', 'age', 'sex', 'nationality', 'cor'))
+
+# df3.3 <- df3.2
+# 
+# 
+# df3.3 <- df3.3 %>% mutate(dummy=1) %>%
+#   spread(key=nationality, value=dummy, fill=0)
 
 
 

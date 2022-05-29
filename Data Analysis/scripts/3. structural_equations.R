@@ -76,7 +76,13 @@ summary(fit_model_aeq)
 
 
 # MIMIC MODEL -------------------------------------------------------------
-aeq_mimic <- '
+aeq_mimic1 <- '
+## Latent variable
+aesthetic_experience =~ emotional + cultural + perceptual + understanding + `flow-proximal` + `flow-experience`
+'
+
+
+aeq_mimic2 <- '
 ## Latent variable
 aesthetic_experience =~ emotional + cultural + perceptual + understanding + `flow-proximal` + `flow-experience`
 
@@ -84,29 +90,36 @@ aesthetic_experience =~ emotional + cultural + perceptual + understanding + `flo
 aesthetic_experience ~ sex + age + nationality
 
 ## Add effects on judgement
-cor ~ aesthetic_experience + sex + age
+cor ~ aesthetic_experience + sex + age + nationality
 '
 
 
-fit_aeq_mimic <- cfa(aeq_mimic, data=df3.2)
-graph_sem(fit_aeq_mimic, standardized=TRUE)
-summary(fit_aeq_mimic, standardized=TRUE)
+aeq_mimic3 <- '
+## Latent variable
+aesthetic_experience =~ emotional + cultural + perceptual + understanding + `flow-proximal` + `flow-experience`
+
+## Add effect on aes experience
+aesthetic_experience ~ sex + age + nationality
+
+cultural ~ nationality
+
+## Add effects on judgement
+cor ~ aesthetic_experience + sex + age
+'
+
+fit_aeq_mimic1 <- cfa(aeq_mimic1, data=df3.2)
+fit_aeq_mimic2 <- cfa(aeq_mimic2, data=df3.2)
+fit_aeq_mimic3 <- cfa(aeq_mimic3, data=df3.2)
+anova(fit_aeq_mimic2, fit_aeq_mimic3)
+summary(fit_aeq_mimic3, standardized=TRUE)
+graph_sem(fit_aeq_mimic3, standardized=TRUE)
+# semPaths(fit_aeq_mimic,
+#          what = 'paths',
+#          layout = 'tree')
 
 
-fitm_aeq_mimic <-  fitMeasures(fit_aeq_mimic, c("logl",
-                                              "AIC", 
-                                              "BIC", 
-                                              "chisq",
-                                              "df",
-                                              "pvalue",
-                                              "cfi",
-                                              "tli",
-                                              "rmsea"), 
-                                 output = "matrix")
-
-fitm_aeq_mimic
-
-
-res <- model.matrix(~nationality, data=df3.2)
-head(res[, -1])
+fitMeasures(
+  fit_aeq_mimic3, c("logl", "AIC", "BIC", "chisq", "df", "pvalue", 
+                   "cfi", "tli", "rmsea"), 
+  output = "matrix")
 
