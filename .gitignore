@@ -9,3 +9,13 @@ GANalyze/tensorflow/generators/biggan-256.pth
 .Rproj.user
 Data Analysis/.Rhistory
 Data Analysis/extraction/demographic.csv
+*.txss2
+*.toc
+*.synctex.gz
+*.run.xml
+*.out
+*.log
+*.blg
+*.bcf
+*.bbl
+*.aux

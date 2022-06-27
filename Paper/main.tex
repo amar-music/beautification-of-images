@@ -1,0 +1,94 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{graphicx}\graphicspath{ {images/} }
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo} % Font
+\usepackage[a4paper,left=25mm,right=25mm,top=25mm,bottom=25mm]{geometry}
+\usepackage{lipsum} % Placeholder text
+\usepackage{subfiles}
+\usepackage{setspace}
+\usepackage{hyperref} % Colored boxes for refs
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[backend=biber, style=apa]{biblatex}
+
+% Import references
+\addbibresource{bibliography.bib}
+
+% Figure sequential count
+%\counterwithout{figure}{chapter}
+
+% Format chapters
+%\titleformat{\chapter}{\normalfont\LARGE}{}{0pt}{\LARGE\bf}
+%\titlespacing{\chapter}{0pt}{0pt}{20pt}[0pt]
+
+% Format sections
+%\titleformat{\section}{\centering\normalfont\normalsize}{}{0pt}{\normalsize\bf}
+%\titlespacing{\section}{0pt}{6pt}{2pt}[0pt]
+
+% Format subsections
+%\titleformat{\subsection}{\normalfont\normalsize}{}{0pt}{\normalsize\bf}
+%\titlespacing{\subsection}{0pt}{6pt}{1pt}[0pt]
+
+% Format figures
+\captionsetup[figure]{labelsep=newline, labelfont=bf, singlelinecheck=false, font=onehalfspacing, textfont=it}
+
+\captionsetup[subfigure]{labelformat=empty, singlelinecheck=true}
+
+%\setlength{\RaggedRightParindent}{\parindent}
+%\RaggedRight
+%\onehalfspacing
+%\setcounter{secnumdepth}{0}
+
+% Title page
+\title{
+	{Thesis}\\
+	{\large KU Leuven}
+}
+\author{Amar Music}
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		{\huge\bfseries Beautification of Images by Generative Adversarial Networks (GANs)\par}
+		\vspace{1cm}
+		{\Large\itshape Amar Music\par}
+		Master of Psychology: Theory and Research\par
+		\vspace{0.5cm}
+		{\scshape\large KU Leuven\par}
+		Faculty of Psychology and Educational Sciences\par
+
+		\vfill
+		\large Supervisor: Prof. Johan Wagemens\par
+		\large Co-supervisor: Anne-Sofie Maerten\par
+		{\large \today\par}
+	\end{titlepage}
+	
+	% Define all variables
+	\newcommand\pval{0.05}
+	\newcommand\totalstimuli{30.807}
+	
+	\tableofcontents
+	
+	\subfile{chapters/abstract/abstract}
+	\pagebreak
+	
+	\subfile{chapters/introduction/introduction}
+	\pagebreak
+
+	\subfile{chapters/methods/methods}
+	\pagebreak
+	
+	\subfile{chapters/results/results}
+	\pagebreak
+	
+	\subfile{chapters/discussion/discussion}
+	\pagebreak
+	
+	\printbibliography
+	\pagebreak
+	
+	\subfile{chapters/appendix/appendix}
+	
+\end{document}
