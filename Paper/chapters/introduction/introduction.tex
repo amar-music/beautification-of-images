@@ -2,6 +2,10 @@
 
 \begin{document}
 \section{Beautification of images by Generative Adversarial Networks (GANs)}
+% Theoretical framing of the research problem
+How we appraise an image is determined by many factors. Many studies have attempted to research these factors in a large variety of ways \parencite{deng2017image}. In this study, we will investigate the factors underlying the aesthetic value of images using generative adversarial networks (GANs). A GAN is essentially a training pair of neural networks in competition against each other, eventually leading to a strong discriminator network which judges the output produced by the generator \parencite{creswellGenerativeAdversarialNetworks2018}. \textcite{goetschalckxGANalyzeVisualDefinitions2019} have developed GANalyze, a framework using GANs which allows us to study cognitive properties by means of so-called visual definitions. We will use GANalyze to generate sequences of images that are supposed to possess either \textit{more}, or \textit{less} aesthetic quality. This way, we will be able to examine the underlying factors responsible for making an image either more or less aesthetic by comparing the supposed low-aesthetic to the supposed high-aesthetic images created by GANalyze. We will perform a finer analysis of the aesthetics-related parameters by looking into the hidden layers of the trained GANalyze network.
+
+If we want to learn something about human aesthetics appraisal from a GAN, we must first validate whether the GAN truly `understands' what it means for an image to possess aesthetic quality. To do this, we must validate whether human participants tend to agree with the GAN on which image appears to be more beautiful. We are also interested whether a person's experience with art and their demographic characteristics affect their proportion of agreement with the GAN. A relation between art experience and agreement with the GAN could have important implications for the validation of the network and the generalizability of the final results.
 
 	\subsection{Philosophy}
 		\begin{itemize}

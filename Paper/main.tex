@@ -2,18 +2,20 @@
 \usepackage{graphicx}\graphicspath{ {images/} }
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{mathpazo} % Font
-\usepackage[a4paper,left=25mm,right=25mm,top=25mm,bottom=25mm]{geometry}
-\usepackage{lipsum} % Placeholder text
+%\usepackage{mathpazo} % Font
+\usepackage[a4paper, margin=1in]{geometry}
 \usepackage{subfiles}
-\usepackage{setspace}
 \usepackage{hyperref} % Colored boxes for refs
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[backend=biber, style=apa]{biblatex}
+\usepackage{setspace}\doublespacing
+\usepackage{titlesec}
 
 % Import references
 \addbibresource{bibliography.bib}
+
+
 
 % Figure sequential count
 %\counterwithout{figure}{chapter}
@@ -23,12 +25,12 @@
 %\titlespacing{\chapter}{0pt}{0pt}{20pt}[0pt]
 
 % Format sections
-%\titleformat{\section}{\centering\normalfont\normalsize}{}{0pt}{\normalsize\bf}
-%\titlespacing{\section}{0pt}{6pt}{2pt}[0pt]
+\titleformat{\section}{\centering\normalfont\normalsize}{}{0pt}{\normalsize\bf}
+\titlespacing*{\section}{0pt}{6pt}{2pt}[0pt]
 
 % Format subsections
-%\titleformat{\subsection}{\normalfont\normalsize}{}{0pt}{\normalsize\bf}
-%\titlespacing{\subsection}{0pt}{6pt}{1pt}[0pt]
+\titleformat{\subsection}{\normalfont\normalsize}{}{0pt}{\normalsize\bf}
+\titlespacing*{\subsection}{0pt}{6pt}{1pt}[0pt]
 
 % Format figures
 \captionsetup[figure]{labelsep=newline, labelfont=bf, singlelinecheck=false, font=onehalfspacing, textfont=it}
