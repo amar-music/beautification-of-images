@@ -12,6 +12,7 @@ library("corrplot")
 library("psych")
 library("lavaan") 
 library("lavaan.survey")
+library("quickpsy")
 
 
 ## Load functions ----
@@ -63,6 +64,31 @@ df <- df %>%
   mutate(c_key = replace(c_key, c_key == 'j', 1))
 df$c_key <- as.integer(df$c_key)
 
+df <- df %>%
+  mutate(positive = case_when(
+    alpha < 0 ~ 0,
+    alpha > 0 ~ 1
+  ))
+df$positive <- as.factor(df$positive)
+
+
+df.cont <- df
+
+df.cont <- df.cont %>%
+  mutate(cor = if_else(positive == 0, 1-cor, cor))
+
+## Make positive and negative dataframe
+dfp <- df[df$alpha > 0,]
+dfn <- df[df$alpha < 0,]
+
+
+
+
+
+
+
+
+
 
 
 # Dataframes for plots ----------------------------------------------------
@@ -76,7 +102,8 @@ diff_correct.indiv <- df %>%
           upper_ci = upper_ci(acc, se, count))
 
 
-diff_correct.total <- df %>% 
+## Accuracy for each difference level ----
+dfd <- df %>% 
   group_by(diff) %>%  
   summarize(acc = mean(cor),
             sd = sd(cor),
@@ -86,19 +113,44 @@ diff_correct.total <- df %>%
           upper_ci = upper_ci(acc, se, count))
 
 
-alpha_correct.total <- df %>% 
+## Accuracy for each alpha level withfor each participant ----
+dfa <- df %>% 
   group_by(alpha) %>%  
   summarize(acc = mean(cor),
             sd = sd(cor),
-            count = n()) %>%
+            count = n(),
+            nCor = sum(cor)) %>%
   mutate (se = sd / sqrt(count),
+          positive = if_else(alpha<0, 0, 1),
+          lower_ci = lower_ci(acc, se, count),
+          upper_ci = upper_ci(acc, se, count))
+
+dfa.cont <- df.cont %>% 
+  group_by(alpha) %>%  
+  summarize(acc = mean(cor),
+            sd = sd(cor),
+            count = n(),
+            nCor = sum(cor)) %>%
+  mutate (se = sd / sqrt(count),
+          positive = if_else(alpha<0, 0, 1),
           lower_ci = lower_ci(acc, se, count),
           upper_ci = upper_ci(acc, se, count))
 
 
-alpha_correct.total <- df %>% 
-  group_by(alpha) %>%  
-  summarize(acc = mean(cor), correct = sum(cor))
+### Negative only ----
+dfan <- dfa[dfa$positive == 0,]
+dfan$alpha <- abs(dfan$alpha)
+
+### Positive only ----
+dfap <- dfa[dfa$positive == 1,]
+
+## Fit psychometric functions  ----
+qps_fit.p <- quickpsy(dfap, alpha, nCor, count, guess=TRUE, lapses = TRUE)
+qps_fit.n <- quickpsy(dfan, alpha, nCor, count, guess=TRUE, lapses = TRUE)
+
+qps_fit.asym <- quickpsy(df.cont, alpha, cor, grouping=('positive'), guess=TRUE, lapses=TRUE)
+qps_fit.sym <- quickpsy(df.cont, alpha, cor, guess=TRUE, lapses=TRUE)
+
 
 
 
