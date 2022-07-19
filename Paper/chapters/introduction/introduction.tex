@@ -2,44 +2,53 @@
 
 \begin{document}
 \section{Beautification of images by Generative Adversarial Networks (GANs)}
-% Theoretical framing of the research problem
-How we appraise an image is determined by many factors. Many studies have attempted to research these factors in a large variety of ways \parencite{deng2017image}. In this study, we will investigate the factors underlying the aesthetic value of images using generative adversarial networks (GANs). A GAN is essentially a training pair of neural networks in competition against each other, eventually leading to a strong discriminator network which judges the output produced by the generator \parencite{creswellGenerativeAdversarialNetworks2018}. \textcite{goetschalckxGANalyzeVisualDefinitions2019} have developed GANalyze, a framework using GANs which allows us to study cognitive properties by means of so-called visual definitions. We will use GANalyze to generate sequences of images that are supposed to possess either \textit{more}, or \textit{less} aesthetic quality. This way, we will be able to examine the underlying factors responsible for making an image either more or less aesthetic by comparing the supposed low-aesthetic to the supposed high-aesthetic images created by GANalyze. We will perform a finer analysis of the aesthetics-related parameters by looking into the hidden layers of the trained GANalyze network.
+%%%% General introduction
+For millennia, philosophers have been arguing about the nature of beauty. Yet after all these years, we still can't confidently claim to understand what beauty even \textit{is}. Furthermore, the fundamental question whether beauty is subjective or objective remains unsettled \parencite{sep-beauty}. In this paper, we will use state-of-the-art machine learning techniques to try and create a so-called `visual definition' of beauty.
+
+
+%%%% Philosophy
+\subsection{Defining Beauty}
+% What is beauty?
+Throughout history, there have been different conceptions of beauty. The classical conception of beauty, often embodied in classical art, typically concerns the arrangement of independent parts into a coherent whole through properties such as symmetry and order \parencite{wolfflin1932principles, sep-beauty}. Another important conception is the idealist conception of beauty described by Plato as a perfect unity. This is in contrast to the classical conception which emphasizes individual parts \parencite{sep-beauty}. 18th century empiricist philosophers on the other hand looked at beauty in a more instrumental, hedonistic sense. \textcite{hume2003treatise} for example argues that beauty exists to give pleasure and satisfaction to the soul.
+
+% Subjectivity and objectivity
+While most classical philosophers would have argued that beauty is a property of an object that exists outside the mind, Renaissance and later philosophers argue more for a combination of some objective properties with unique subjective appreciations \parencite{sartwell2017entanglements}. The assumption that there are indeed some objective properties to beauty allows us to examine what exactly it means for something to be beautiful.
+
+% Philosophy of aesthetics
+
+
+
+
+%%%% Psychology
+% Transition to psychology
+The shift from a pure objective conception of beauty towards a more nuanced combination of objective properties with subjective perception logically coincided with the start of psychology as an empirical science in the 19th century. 
+
+% What is beauty? (other perspective)
+Among these early psychologists a school of thought now known as Gestalt psychology 
+
+% Studies on aesthetics
+Gestalt psychology relating to classical conception of beauty.
+
+% Evolutionary psychology
+% Experimental aesthetics
+% Supernormal stimuli??
+% Hyperreality
+% Peak shift principle
+% Refer to AestheticsNet
+
+
+\subsection{Machine Learning and Beauty}
+% Introduction to GANs
+% Use of GANs in cognitive science
+% Comparison of human visual perception with neural networks
+% GANalyze to obtain a visual definition
+% AestheticsNet & BigGAN
+
+
+%%%% Theoretical framing of the research problem
+How we appraise a picture is determined by many factors. Many studies have attempted to explore these factors in a large variety of ways \parencite{deng2017image}. In this study, we will investigate the factors underlying the aesthetic value of images using a generative adversarial network (GAN). A GAN is essentially a training pair of neural networks in competition with each other, eventually leading to a strong discriminator network which judges the output produced by the generator \parencite{creswellGenerativeAdversarialNetworks2018}. \textcite{goetschalckxGANalyzeVisualDefinitions2019} have developed GANalyze, a framework using GANs that allows us to study cognitive properties by means of so-called visual definitions. We will use GANalyze to generate sequences of images that are supposed to possess either \textit{more}, or \textit{less} aesthetic quality. This way, we will be able to examine the underlying factors responsible for making an image either more or less aesthetic by comparing the supposed low-aesthetic to the supposed high-aesthetic images created by GANalyze. We will perform a finer analysis of the aesthetics-related parameters by looking into the hidden layers of the trained GANalyze network.
 
 If we want to learn something about human aesthetics appraisal from a GAN, we must first validate whether the GAN truly `understands' what it means for an image to possess aesthetic quality. To do this, we must validate whether human participants tend to agree with the GAN on which image appears to be more beautiful. We are also interested whether a person's experience with art and their demographic characteristics affect their proportion of agreement with the GAN. A relation between art experience and agreement with the GAN could have important implications for the validation of the network and the generalizability of the final results.
-
-	\subsection{Philosophy}
-		\begin{itemize}
-			\item What is beauty?
-			\item Philosophy of aesthetics
-			\item Transition to psychology to find answers
-		\end{itemize}
-	
-	\subsection{Psychology}
-		\begin{itemize}
-			\item What is beauty
-			\begin{itemize}
-				\item Studies on aesthetics
-				\item Evolutionary psychology
-				\item Experimental aesthetics
-				\item \textbf{Supernormal stimuli??} (probably discussion, not introduction)
-				\item \textbf{Hyperreality}
-				\item \textbf{Peak shift principle}
-				\item Refer to AestheticsNet
-			\end{itemize}
-		\end{itemize}
-	
-	\subsection{Machine Learning}
-		\begin{itemize}
-			\item Introduction to GANs
-			\item Use of GANs in cognitive science
-			\item Comparison of human visual perception with neural networks
-		\end{itemize}
-
-	\subsection{Solving problems of defining beauty with ML}
-		\begin{itemize}
-			\item GANalyze to obtain a visual definition
-			\item AestheticsNet \& BigGAN
-		\end{itemize}
 
 
 \end{document}

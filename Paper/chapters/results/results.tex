@@ -35,23 +35,30 @@
 
 
 	\subsection{Behavioral Task}
-	Figure~\ref{fig:psychometric_curves} shows the proportion of responses in correspondence with GANalyze's generated images for all participants.
+	\subsubsection{Descriptive}
+	
+	
+	
+	\subsubsection{Psychometric Function}
+	To test the effect of different $\alpha$-values on image preference, we fitted a psychometric function on the data (Figure~\ref{fig:psychometric_curves}a). The figure shows that the relation between the $\alpha$-value used for image generation and the behavioral responses can be reasonably fitted with the typical psychometric function commonly found in psychophysical discrimination tasks. As expected, the estimated point of subjective equality (PSE) for the neutral and non-neutral image is at $\alpha = 0$ (99\% CI $[-0.00, 0.00]$). The estimated guess rate (equivalent to the lapse rate of negative $\alpha$'s) is 0.07 (99\% CI $[0.07, 0.08]$) and the estimated lapse rate is 0.17 (99\% CI [0.17, 0.18]).
+	
+	We found a difference between the rating of high-$|\alpha|$ images for positive and negative $\alpha$-values (Figure~\ref{fig:psychometric_curves}b). People tend to agree more with GANalyze when it generates images that are supposed to be of lower aesthetic value. This difference is especially pronounced for the extreme variations. A second order polynomial multiple regression with the predictors $|\alpha|$, $|\alpha|^2$, and dummy variable \texttt{positive} explained 95\% of the observed variance ($R^2=.95, F(3,10)=90.59, p<.001$). $|\alpha|$ and $|\alpha|^2$ both significantly predicted the proportion agreement with GANalyze ($\beta=3.87, p<.001; \beta=-10.03, p<.001$). The \texttt{positive} variable was also significant ($\beta=-0.05, p<.05$), indicating an asymmetry in the appreciation of the generated high- and low-aesthetic images.  
 
-	\begin{figure}[ht]
-		\caption{Psychometric Function for Image Discrimination}
+	\begin{figure}[h!]
+		\caption{Behavioral Results from the Image Rating Task}
 		\label{fig:psychometric_curves}
 		\centering
-		\begin{subfigure}{0.45\textwidth}
-			\centering
-			\includegraphics[width=1\linewidth]{results/cont_asym.pdf}
-			\caption{\centering One big caption somehow}
-		\end{subfigure} \hfill
-		\begin{subfigure}{0.45\textwidth}
-			\centering
-			\includegraphics[width=1\linewidth]{results/alpha_correct.pdf}
-			\caption{\centering a}
+		\begin{subfigure}{\textwidth}
+			{\centering
+			\includegraphics[width=.45\linewidth]{results/cont_asym.pdf}
+			\hfill
+			\includegraphics[width=.45\linewidth]{results/poly_regression.pdf}}
+			\caption{\normalfont\doublespacing (a) Psychometric function for the proportion of chosen non-neutral images, illustrating that the estimated threshold value is approximately 0. Choosing the non-neutral image for a negative $\alpha$-trial corresponds with a disagreement with GANalyze and vice versa. (b) Proportion of agreement with GANalyze with positive and negative $\alpha$'s taken together, fitted with second order polynomial multiple regression.}
 		\end{subfigure} \hfill
 	\end{figure}
+
+	\subsubsection{Confounding Factors}
+	There was no effect of broad category (), no effect of image position (), no effect of  .
 
 
 \end{document}
