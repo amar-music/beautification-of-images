@@ -148,8 +148,15 @@ dfap <- dfa[dfa$positive == 1,]
 qps_fit.p <- quickpsy(dfap, alpha, nCor, count, guess=TRUE, lapses = TRUE)
 qps_fit.n <- quickpsy(dfan, alpha, nCor, count, guess=TRUE, lapses = TRUE)
 
-qps_fit.asym <- quickpsy(df.cont, alpha, cor, grouping=('positive'), guess=TRUE, lapses=TRUE)
-qps_fit.sym <- quickpsy(df.cont, alpha, cor, guess=TRUE, lapses=TRUE)
+qps_fit.asym <- quickpsy(df.cont, alpha, cor, grouping=('positive'), guess=TRUE, lapses=TRUE, ci=.99)
+qps_fit.sym <- quickpsy(df.cont, alpha, cor, guess=TRUE, lapses=TRUE, ci=.99)
+
+
+
+
+
+# Dataframes for confounding factors --------------------------------------
+dfa.long
 
 
 

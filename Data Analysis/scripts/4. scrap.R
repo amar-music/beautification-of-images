@@ -24,9 +24,9 @@ ggplot(dfd, aes(x = diff, y = acc)) +
 
 
 ## GLM fits ----
-ggplot(df, aes(alpha, cor, group=positive, col=positive)) +
-  #geom_point(alpha = 0.2) +
-  geom_smooth(method = "glm", method.args = list(family = binomial(link = "logit"))) +
+ggplot(df, aes(abs(alpha), cor, group=positive, col=positive)) +
+  geom_point(data=dfa, aes(x=abs(alpha), y=acc, col=as.factor(positive))) +
+  geom_smooth(method = "glm", method.args = list(family = binomial(link='logit'))) +
   labs(
     title = "Logistic Regression for All Alphas",
     x = "Alpha",

@@ -19,7 +19,7 @@ ggplot(dfa, aes(x=abs(alpha), y=acc)) +
   geom_line(data = qps_fit.n$curves, aes(x = x, y = y), size=1, col='#F8766D') +
   geom_line(data = qps_fit.p$curves, aes(x = x, y = y), size=1, col='#00BFC4') +
   geom_errorbar(aes(x = abs(alpha), ymin = lower_ci, ymax = upper_ci, color=as.factor(positive)), width=0, lwd=0.25) + 
-  annotate('text', x=0.005, y=1, label='(B)', fontface=2) +
+  annotate('text', x=0.005, y=1, label='(b)', fontface=2) +
   scale_color_manual(labels=c(expression(paste('negative ', alpha)), expression(paste('positive ', alpha))), values=c('#F8766D', '#00BFC4')) +
   ylim(c(.5, 1)) +
   labs(
@@ -59,10 +59,10 @@ ggsave(
 
 ## Asymmetrical model ----
 ggplot(dfa.cont, aes(x=alpha, y=acc)) +
+  geom_errorbar(data=dfa.cont, aes(x = alpha, ymin = lower_ci, ymax = upper_ci), width=0, lwd=0.25) + 
   geom_point(data = dfa.cont, aes(x=alpha, y=acc, col=as.factor(positive))) +
-  geom_errorbar(data=dfa.cont, aes(x = alpha, ymin = lower_ci, ymax = upper_ci, color=as.factor(positive)), width=0, lwd=0.25) + 
   geom_line(data = qps_fit.asym$curves, aes(x = x, y = y, col=positive), size=1, key_glyph = 'point') +
-  annotate('text', x=-0.25, y=1, label='(A)', fontface=2) +
+  annotate('text', x=-0.25, y=1, label='(a)', fontface=2) +
   scale_color_manual(labels=c(expression(paste('negative ', alpha)), expression(paste('positive ', alpha))), values=c('#F8766D', '#00BFC4')) +
   ylim(c(0, 1)) +
   labs(
@@ -103,14 +103,62 @@ ggsave(
 ## Symmetrical model ----
 ggplot(df.cont, aes(x=alpha, y=cor)) +
   geom_point(data = dfa.cont, aes(x=alpha, y=acc)) +
-  geom_line(data = qps_fit.sym$curves, aes(x = x, y = y), size=1) +
+  geom_line(data = qps_fit.sym$curves, aes(x = x, y = y)) +
   ylim(c(0, 1)) +
   labs(
     x = "Difference Between Stimuli",
     y = "Proportion Agreement with GANalyze"
   ) +
-  geom_vline(xintercept=0) +
+  geom_vline(xintercept=0, linetype=2) +
   theme_apa()
+
+
+
+
+## Polynomial regression ----
+ggplot(dfa, aes(abs(alpha), acc, group=positive, col=as.factor(positive))) +
+  geom_point() +
+  stat_smooth(method = lm, formula = y ~ poly(x, 2), key_glyph = 'point') +
+  annotate('text', x=0.005, y=1, label='(b)', fontface=2) +
+  scale_color_manual(labels=c(expression(paste('negative ', alpha)), expression(paste('positive ', alpha))), values=c('#F8766D', '#00BFC4')) +
+  ylim(c(.5, 1)) +
+  labs(
+    x = expression(bold(paste('|', alpha, '|-value'))),
+    y = "Proportion Agreement with GANalyze"
+  ) +
+  theme(
+    strip.text.x = element_text(size=12, color='black', face='bold', margin=margin(b=8)),
+    strip.background = element_rect(fill=NA),
+    axis.title.x = element_text(size=12, color='black', face='bold', margin=margin(t=8)),
+    axis.title.y = element_text(size=12, color='black', face='bold', margin=margin(r=8)),
+    axis.ticks = element_line(color='black'),
+    panel.border = element_rect(color='black', fill=NA),
+    panel.background = element_rect(fill=NA),
+    legend.title = element_blank(),
+    legend.position = c(0.80, 0.15), 
+    legend.spacing.x = unit(0.01, 'cm'),
+    legend.text = element_text(size=8),
+    legend.key.size = unit(0.4, 'cm'),
+    legend.key = element_rect(fill='NA'),
+    axis.text=element_text(size=9, color='black')
+  )
+ggsave(
+  'poly_regression.pdf',
+  plot = last_plot(),
+  device = 'pdf',
+  path = '../Paper/images/results',
+  scale = 1,
+  width = 10,
+  height = 9.5,
+  units = "cm",
+  dpi = 300,
+  limitsize = TRUE,
+  bg = NULL
+)
+
+
+
+
 
 
 
