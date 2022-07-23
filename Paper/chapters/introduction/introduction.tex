@@ -1,7 +1,7 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-\section{Beautification of images by Generative Adversarial Networks (GANs)}
+\section{Beautification of Images by Generative Adversarial Networks (GANs)}
 %%%% General introduction
 For millennia, philosophers have been arguing about the nature of beauty. Yet after all these years, we still can't confidently claim to understand what beauty even \textit{is}. Furthermore, the fundamental question whether beauty is subjective or objective remains unsettled \parencite{sep-beauty}. In this paper, we will use state-of-the-art machine learning techniques to try and create a so-called `visual definition' of beauty.
 
@@ -20,17 +20,16 @@ While most classical philosophers would have argued that beauty is a property of
 
 
 %%%% Psychology
+\subsection{How we Perceive Beauty}
 % Transition to psychology
-The shift from a pure objective conception of beauty towards a more nuanced combination of objective properties with subjective perception logically coincided with the start of psychology as an empirical science in the 19th century. 
-
-% What is beauty? (other perspective)
-Among these early psychologists a school of thought now known as Gestalt psychology 
+The shift from a pure objective conception of beauty towards a more nuanced combination of objective properties with subjective perception preceded the start of psychology as an empirical science in the 19th century. Among these early psychologists a school of thought known as Gestalt psychology came to fruition in the early 20th century. The Gestalt psychologists created a framework of visual perception that emphasizes patterns and configurations of objects rather than individual components \parencite{wagemansCenturyGestaltPsychology2012a}. Examples of perceptual grouping principles are proximity, similarity, continuity, closure, and connectedness \parencite{goldstein2009perceiving}. In the Gestalt framework, principles such as these are the building blocks for our visual system \parencite{wagemansCenturyGestaltPsychology2012a}.
 
 % Studies on aesthetics
-Gestalt psychology relating to classical conception of beauty.
+Later psychological research focusing on art and aesthetic appreciation has found that there are  certain principles that tend to evoke a certain aesthetic quality across cultures such as for example symmetry \parencite{bodeCrossculturalComparisonPreference2017}, order and complexity \parencite{van2021order}, and figure-ground contrast \parencite{reberProcessingFluencyAesthetic2004}. Mirroring the progression in philosophy, modern views on aesthetics from neuroscience and experimental psychology support an interactionist interpretation of beauty: objects do contain intrinsic properties conveying beauty, but the final aesthetic appraisal comes from an interaction between these objective properties and a subjective observer \parencite{valenziseAdvancesChallengesComputational2022}.
 
+% Processing fluency
+One influential framework that incorporates the interactionist interpretation of beauty is that of processing fluency formulated by \textcite{reberProcessingFluencyAesthetic2004}. In this framework, the aesthetic experience is determined by the fluency with which a perceived object is processed. Processing fluency relies on an interaction of objective properties such as the principles from Gestalt psychology with subjective factors such as personal experiences and expectations.
 % Evolutionary psychology
-% Experimental aesthetics
 % Supernormal stimuli??
 % Hyperreality
 % Peak shift principle
@@ -38,17 +37,23 @@ Gestalt psychology relating to classical conception of beauty.
 
 
 \subsection{Machine Learning and Beauty}
+% Introduce Computational Aesthetics
+One of the biggest technological advances in recent years is in the field of machine learning. This `Deep Learning Revolution' was sparked by the continuous efforts of researchers and engineers, the increasing availability of big data, and the boost in computing power \parencite{sejnowskiDeepLearningRevolution2018}. Because these networks have some organizational similarities to the human brain, they can potentially be used as a means to study obscure mental representations in humans \parencite{guoDeepLearningVisual2016}.
+
+Computational Aesthetics \parencite{valenziseAdvancesChallengesComputational2022}.
 % Introduction to GANs
-% Use of GANs in cognitive science
+% Use of GANs in cognitive science & similarity to brain structures
 % Comparison of human visual perception with neural networks
 % GANalyze to obtain a visual definition
+\textcite{goetschalckxGANalyzeVisualDefinitions2019} have developed GANalyze, a framework using GANs that allows us to study cognitive properties by means of so-called visual definitions.
 % AestheticsNet & BigGAN
 
 
 %%%% Theoretical framing of the research problem
-How we appraise a picture is determined by many factors. Many studies have attempted to explore these factors in a large variety of ways \parencite{deng2017image}. In this study, we will investigate the factors underlying the aesthetic value of images using a generative adversarial network (GAN). A GAN is essentially a training pair of neural networks in competition with each other, eventually leading to a strong discriminator network which judges the output produced by the generator \parencite{creswellGenerativeAdversarialNetworks2018}. \textcite{goetschalckxGANalyzeVisualDefinitions2019} have developed GANalyze, a framework using GANs that allows us to study cognitive properties by means of so-called visual definitions. We will use GANalyze to generate sequences of images that are supposed to possess either \textit{more}, or \textit{less} aesthetic quality. This way, we will be able to examine the underlying factors responsible for making an image either more or less aesthetic by comparing the supposed low-aesthetic to the supposed high-aesthetic images created by GANalyze. We will perform a finer analysis of the aesthetics-related parameters by looking into the hidden layers of the trained GANalyze network.
+\subsection{Present Study}
+The goal of this study is to investigate the factors underlying the aesthetic value of images using GANalyze. We will use GANalyze to generate sequences of images that are supposed to possess either \textit{more}, or \textit{less} aesthetic quality. This way, we will be able to examine the underlying factors responsible for making an image either more or less aesthetic by comparing the supposed low-aesthetic to the supposed high-aesthetic images. We will perform a finer analysis of the aesthetics-related parameters by looking into the hidden layers of the trained GANalyze network.
 
-If we want to learn something about human aesthetics appraisal from a GAN, we must first validate whether the GAN truly `understands' what it means for an image to possess aesthetic quality. To do this, we must validate whether human participants tend to agree with the GAN on which image appears to be more beautiful. We are also interested whether a person's experience with art and their demographic characteristics affect their proportion of agreement with the GAN. A relation between art experience and agreement with the GAN could have important implications for the validation of the network and the generalizability of the final results.
+If we wish to learn something about human aesthetics appraisal from a GAN, we must first validate whether the GAN truly `understands' what it means for an image to possess aesthetic quality. To do so, we will validate whether human participants tend to agree with the GAN on which image appears to be more beautiful. We are also interested whether a person's experience with art and their demographic characteristics affect their proportion of agreement with the GAN. A relation between art experience and agreement with the GAN could have important implications for the validation of the network and the generalizability of the final results.
 
 
 \end{document}
