@@ -3,11 +3,8 @@
 \begin{document}
 \section{Methods}
 
-	\subsection{Pilot}
-	We conducted a small-scale version of the experiment to find reasonable variables to use for the final experiment. The pilot consisted of xx participants who ....
-	
 	\subsection{Stimulus Generation}
-	We used GANalyze with AestheticsNet \parencite{kongPhotoAestheticsRanking2016} as the assessor and BigGAN-256 \parencite{brockLargeScaleGAN2019} pretrained on ImageNet \parencite{russakovskyImageNetLargeScale2015} as the generator to train the GANalyze model for 400,000 iterations. The training resulted in GANalyze being able to produce image sequences based on 1,000 ImageNet categories. For each ImageNet category, we initially generated three different seeds (i.e., three different images of Siamese cats) to test for an effect of idiosyncratic effects of images on top semantic category. Within each seed, GANalyze produced 21 images with a supposedly increasing amount of aesthetic value (Figure ~\ref{fig:sample_sequence}). We picked a broad range of $\alpha$-values with increasing density close to zero to obtain stimuli with obvious changes (e.g., $\alpha$ = 0.25), but also subtle changes (e.g., $\alpha$ = 0.0025). We chose these values because we hypothesized there to be a ceiling effect where there would be no behavioral differences for extreme $\alpha$-values. We also hypothesized that for very low $\alpha$-values, the perceptual difference between stimuli would be too small to detect. The specific $\alpha$-values used in the final experiment were chosen based on the results of a pilot study with a very broad range. In addition, the pilot showed us that we would be justified to only use one of the three seeds for each category.
+	We used GANalyze with AestheticsNet \parencite{kongPhotoAestheticsRanking2016} as the assessor and BigGAN-256 \parencite{brockLargeScaleGAN2019} pretrained on ImageNet \parencite{russakovskyImageNetLargeScale2015} as the generator to train the GANalyze model for 400,000 iterations. The training resulted in GANalyze being able to produce image sequences based on 1,000 ImageNet categories. For each ImageNet category, we initially generated three different seeds (e.g., three different images of Siamese cats) to test for an effect of idiosyncratic effects of images on top semantic category. Within each seed, GANalyze produced 21 images with a supposedly increasing amount of aesthetic value (Figure ~\ref{fig:sample_sequence}). We picked a broad range of $\alpha$-values with increasing density close to zero to obtain stimuli with obvious changes (e.g., $\alpha$ = 0.25), but also subtle changes (e.g., $\alpha$ = 0.0025). We chose these values because we hypothesized there to be a ceiling effect where there would be no behavioral differences for extreme $\alpha$-values. We also hypothesized that for very low $\alpha$-values, the perceptual difference between stimuli would be too small to detect. The specific $\alpha$-values used in the final experiment were chosen based on the results of a pilot study with a very broad range. In addition, the pilot showed us that we would be justified to only use one of the three seeds for each category.
 	
 	511 ImageNet categories were manually excluded from the stimulus set because they either contained human faces (which are deliberately warped by BigGAN), insects such as spiders which might make some participants feel uncomfortable, or for redundancy such as the disproportionately high number of categories about dog breeds. In addition, stimuli that were unrecognizable were also excluded. This resulted in 489 categories, each with one seed and 15 $\alpha$-values, equaling a total of 7,335 stimuli.
 	
@@ -79,10 +76,10 @@
 	
 	
 	
-	\subsubsection{Behavioral Task}
-	Outliers, total participants, etc.
+	\subsubsection{Behavioral Experiment}
+	We analyzed the results from the behavioral task using a variety of methods. First of all, we cleaned the data by removing participants that (1) had a bias for the left/right stimulus $>25\%$, (2) performed too close to chance (i.e., $<55\%$ agreement for all $\alpha$-values), (3) responded too fast to reasonably perceive and judge the stimuli (i.e., median RT $<500$ ms), and (4) had an exceptionally low number of trials during the 10-minute experiment (i.e., number of trials $<50$).
 	
-	(Merge with SEM perhaps)
+	To see whether the different $\alpha$-values indeed represent a gradual change in stimulus difference, we fitted the results of all participants with a psychometric function using the \texttt{quickpsy} package \parencite{linares2016quickpsy}. Analysis on differences between positive and negative $\alpha$-values was done using second-order polynomial regression. Finally, we tested for potential confounding factors using simple ANOVA.
 	
 
 \end{document}
