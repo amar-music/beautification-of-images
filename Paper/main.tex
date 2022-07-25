@@ -8,6 +8,7 @@
 \usepackage{hyperref} % Colored boxes for refs
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{multicol}
 \usepackage[backend=biber, style=apa]{biblatex}
 \usepackage{setspace}\onehalfspacing
 \usepackage{titlesec}
@@ -30,7 +31,7 @@
 
 % Format sections
 \titleformat{\section}{\centering\normalfont\normalsize}{}{0pt}{\normalsize\bf}
-\titlespacing*{\section}{0pt}{6pt}{2pt}[0pt]
+\titlespacing*{\section}{0pt}{20pt}{2pt}[0pt]
 
 % Format subsections
 \titleformat{\subsection}{\normalfont\normalsize}{}{0pt}{\normalsize\bf}
@@ -76,16 +77,12 @@
 	\end{titlepage}
 	
 	% Define all variables
-	\newcommand\pval{0.05}
-	\newcommand\totalstimuli{30.807}
-	
 	\tableofcontents
 	
 	\subfile{chapters/abstract/abstract}
 	\pagebreak
 	
 	\subfile{chapters/introduction/introduction}
-	\pagebreak
 
 	\subfile{chapters/methods/methods}
 	\pagebreak
