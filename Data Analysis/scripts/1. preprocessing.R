@@ -137,6 +137,15 @@ dfa.cont <- df.cont %>%
           upper_ci = upper_ci(acc, se, count))
 
 
+
+df_participants <- df %>%
+  group_by(sub) %>%  
+  summarize(m_age = mean(age),
+            sd_age = sd(age),
+            count = n())
+
+
+
 ### Negative only ----
 dfan <- dfa[dfa$positive == 0,]
 dfan$alpha <- abs(dfan$alpha)
