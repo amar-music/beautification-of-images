@@ -142,7 +142,7 @@ df_participants <- df %>%
   group_by(sub) %>%  
   summarize(m_age = mean(age),
             sd_age = sd(age),
-            count = n())
+            sex = dplyr::first(sex))
 
 
 
