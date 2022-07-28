@@ -200,6 +200,17 @@ df3.2 <- subset(df3, select = c(
 
 
 
+# Dataframes for image features -------------------------------------------
+df4 <- read_csv('extraction/output.csv')
+
+df4a <- df4 %>% 
+  group_by(img) %>%  
+  summarize(m_score = mean(score),
+            sd = sd(score))
+
+
+
+
 
 # Dataframes for world map ------------------------------------------------
 nationalities <- data.frame(table(demographics$Nationality))
