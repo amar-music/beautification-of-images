@@ -1,6 +1,6 @@
 import os
 import numpy as np
-from PIL import Image, ImageFilter, ImageStat
+from PIL import Image, ImageFilter, ImageStat, ImageColor
 import pandas as pd
 
 RUN = True
@@ -14,11 +14,21 @@ def edge_score(img):
     return np.mean(edges)
 
 # Color distribution scoring
-#def clr_dist_score(img):
-#    image = Image.open(img)
-
-# Hue count
 #def hue_score(img):
+#    image = Image.open(img)
+#    hsv_image = image.convert("HSV")
+#    hsv = np.array(hsv_image)
+#    hsv = hsv[:, :, 1]
+
+# Saturation score
+def sat_score(img):
+    image = Image.open(img)
+    hsv_image = image.convert("HSV")
+    hsv = np.array(hsv_image)
+    saturations = hsv[:, :, 1]
+    return np.mean(saturations)
+
+
 
 # Blur scoring
 #def blur_score(img):
@@ -35,9 +45,9 @@ def contrast_score(img):
 # Brightness scoring
 def bright_score(img):
     image = Image.open(img)
-
-
-
+    image = image.convert("L")
+    stats = ImageStat.Stat(image)
+    return stats.mean[0]
 
 
 # Remove first n characters from string
@@ -65,16 +75,22 @@ if RUN:
         cat = remove_chars(img_str[0], 3)
         img = remove_chars(img_str[2][:-4], 3)
 
-        # Calculate edge score
+        # Calculate all score
         edge = edge_score(path + i)
         contrast = contrast_score(path + i)
+        brightness = bright_score(path + i)
+        saturation = sat_score(path + i)
 
         # Calculate
-        rows.append([cat, img, edge, contrast])
-        print("cat_" + str(cat) + " img_" + str(img) + " Edge: " + str(edge) + " Contrast: " + str(contrast))
+        rows.append([cat, img, edge, contrast, brightness, saturation])
+        print("cat_" + str(cat) + " img_" + str(img) +
+              " Edge: " + str(edge) +
+              " Contrast: " + str(contrast) +
+              " Brightness: " + str(brightness) +
+              " Saturation: " + str(saturation))
 
     # Export dataframe
-    df = pd.DataFrame(rows, columns=["cat", "img", "edge_score", "contrast_score"])
+    df = pd.DataFrame(rows, columns=["cat", "img", "edge_score", "contrast_score", "brightness_score", "saturation_score"])
     df.to_csv("../../Data Analysis/extraction/output.csv", index=False)
 
 else:
