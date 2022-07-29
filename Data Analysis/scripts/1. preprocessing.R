@@ -13,6 +13,7 @@ library("psych")
 library("lavaan") 
 library("lavaan.survey")
 library("quickpsy")
+library("tidyr")
 
 
 ## Load functions ----
@@ -24,7 +25,8 @@ upper_ci <- function(mean, se, n, conf_level = 0.95){
   upper_ci <- mean + qt(1 - ((1 - conf_level) / 2), n - 1) * se
 }
 
-
+alphas = c(-0.25, -0.20, -0.15, -0.10, -0.05, -0.015, -0.0025, 
+           0, 0.0025, 0.015, 0.05, 0.10, 0.15, 0.20, 0.25)
 
 
 # Load and clean dataframe ------------------------------------------------
@@ -165,7 +167,7 @@ qps_fit.sym <- quickpsy(df.cont, alpha, cor, guess=TRUE, lapses=TRUE, ci=.99)
 
 
 # Dataframes for confounding factors --------------------------------------
-dfa.long
+#dfa.long
 
 
 
@@ -205,9 +207,19 @@ df4 <- read_csv('extraction/output.csv')
 
 df4a <- df4 %>% 
   group_by(img) %>%  
-  summarize(m_score = mean(score),
-            sd = sd(score))
+  summarize(m_edge = mean(edge_score),
+            m_contrast = mean(contrast_score),
+            m_brightness = mean(brightness_score),
+            m_saturation = mean(saturation_score)) %>%
+  mutate(alpha = alphas)
 
+df4a$edges <- scale(df4a$m_edge)
+df4a$contrast <- scale(df4a$m_contrast)
+df4a$brightness <- scale(df4a$m_brightness)
+df4a$saturation <- scale(df4a$m_saturation)
+
+df4a <- gather(df4a, key=feature, value = score, 
+               c("contrast", "edges", "brightness", "saturation"))
 
 
 
