@@ -30,7 +30,7 @@ alphas = c(-0.25, -0.20, -0.15, -0.10, -0.05, -0.015, -0.0025,
 
 
 # Load and clean dataframe ------------------------------------------------
-df <- read_csv('extraction/test5.csv')
+df <- read_csv('extraction/exp_data.csv')
 demographics <- read_csv('extraction/demographic.csv')
 demographics_subjects <- subset(demographics, select = c('participant_id', 'age', 'Nationality', 'Sex'))
 names(demographics_subjects) <- c('subject_id', 'age', 'nationality', 'sex')
@@ -203,7 +203,7 @@ df3.2 <- subset(df3, select = c(
 
 
 # Dataframes for image features -------------------------------------------
-df4 <- read_csv('extraction/output.csv')
+df4 <- read_csv('extraction/image_features.csv')
 
 df4a <- df4 %>% 
   group_by(img) %>%  
@@ -221,6 +221,19 @@ df4a$saturation <- scale(df4a$m_saturation)
 df4a <- gather(df4a, key=feature, value = score, 
                c("contrast", "edges", "brightness", "saturation"))
 
+
+
+
+
+# Color distributions -----------------------------------------------------
+selected_alphas <- c(-0.25, -0.1, 0, 0.1, 0.25)
+
+tbl <-
+  list.files(pattern = "colors_cat*", recursive = TRUE) %>% 
+  map_df(~read_csv(.)) %>%
+  gather(key, value, -cat, -alpha) %>%
+  filter(alpha %in% selected_alphas)
+tbl$key <- factor(tbl$key, levels=c("red", "green", "blue"))
 
 
 
