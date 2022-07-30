@@ -1,6 +1,6 @@
 #### PLOTS ####
 
-# Psychometric functions --------------------------------------------------
+# Behavioral functions --------------------------------------------------
 
 ## Plot alpha data ----
 ggplot(dfa, aes(x = alpha, y = acc)) +
@@ -13,51 +13,7 @@ ggplot(dfa, aes(x = alpha, y = acc)) +
   theme_apa()
 
 
-## Psychometric functions ----
-ggplot(dfa, aes(x=abs(alpha), y=acc)) +
-  geom_point(aes(col=as.factor(positive)), key_glyph = 'point') +
-  geom_line(data = qps_fit.n$curves, aes(x = x, y = y), size=1, col='#F8766D') +
-  geom_line(data = qps_fit.p$curves, aes(x = x, y = y), size=1, col='#00BFC4') +
-  geom_errorbar(aes(x = abs(alpha), ymin = lower_ci, ymax = upper_ci, color=as.factor(positive)), width=0, lwd=0.25) + 
-  annotate('text', x=0.005, y=1, label='(b)', fontface=2) +
-  scale_color_manual(labels=c(expression(paste('negative ', alpha)), expression(paste('positive ', alpha))), values=c('#F8766D', '#00BFC4')) +
-  ylim(c(.5, 1)) +
-  labs(
-    x = expression(bold(paste('|', alpha, '|-value'))),
-    y = "Proportion Agreement with GANalyze"
-  ) +
-  theme(
-    strip.text.x = element_text(size=12, color='black', face='bold', margin=margin(b=8)),
-    strip.background = element_rect(fill=NA),
-    axis.title.x = element_text(size=12, color='black', face='bold', margin=margin(t=8)),
-    axis.title.y = element_text(size=12, color='black', face='bold', margin=margin(r=8)),
-    axis.ticks = element_line(color='black'),
-    panel.border = element_rect(color='black', fill=NA),
-    panel.background = element_rect(fill=NA),
-    legend.title = element_blank(),
-    legend.position = c(0.80, 0.15), 
-    legend.spacing.x = unit(0.01, 'cm'),
-    legend.text = element_text(size=8),
-    legend.key.size = unit(0.4, 'cm'),
-    legend.key = element_rect(fill='NA'),
-    axis.text=element_text(size=9, color='black')
-  )
-ggsave(
-  'alpha_correct.pdf',
-  plot = last_plot(),
-  device = 'pdf',
-  path = '../Paper/images/results',
-  scale = 1,
-  width = 10,
-  height = 9.5,
-  units = "cm",
-  dpi = 300,
-  limitsize = TRUE,
-  bg = NULL
-)
-
-
-## Asymmetrical model ----
+## Psychometric function ----
 ggplot(dfa.cont, aes(x=alpha, y=acc)) +
   geom_errorbar(data=dfa.cont, aes(x = alpha, ymin = lower_ci, ymax = upper_ci), width=0, lwd=0.25) + 
   geom_point(data = dfa.cont, aes(x=alpha, y=acc, col=as.factor(positive))) +
@@ -99,20 +55,6 @@ ggsave(
   limitsize = TRUE,
   bg = NULL
 )
-
-## Symmetrical model ----
-ggplot(df.cont, aes(x=alpha, y=cor)) +
-  geom_point(data = dfa.cont, aes(x=alpha, y=acc)) +
-  geom_line(data = qps_fit.sym$curves, aes(x = x, y = y)) +
-  ylim(c(0, 1)) +
-  labs(
-    x = "Difference Between Stimuli",
-    y = "Proportion Agreement with GANalyze"
-  ) +
-  geom_vline(xintercept=0, linetype=2) +
-  theme_apa()
-
-
 
 
 ## Polynomial regression ----
@@ -162,7 +104,7 @@ ggsave(
 
 ## Image features ----
 ggplot(df4a, aes(x=alpha, y = score, group = feature, color = feature)) + 
-  geom_line(lwd=1) +
+  geom_smooth(lwd=1, method='gam') +
   ylim(c(-2.5, 2.5)) +
   facet_grid(~feature) +
   labs(
@@ -182,6 +124,27 @@ ggplot(df4a, aes(x=alpha, y = score, group = feature, color = feature)) +
   )
 
 
+
+
+## Color distributions ----
+ggplot(tbl, aes(x=value, col=key, group_by=alpha)) +
+  #geom_histogram(position="identity", alpha = 0.8,  bins=512) +
+  geom_freqpoly(stat="bin", position="identity", bins=1024, alpha = 0.6) +
+  geom_freqpoly(aes(group=key),col="black", bins=257, lwd=0.2) +
+  #scale_color_manual(values=c(red="#ff0000", green="#00ff00", blue="#0000ff")) +
+  xlim(0, 256) +
+  facet_wrap((cat~alpha), ncol=5) +
+  theme(
+    strip.text.x = element_text(size=12, color='black', face='bold', margin=margin(b=8)),
+    strip.background = element_rect(fill=NA),
+    axis.title.x = element_text(size=12, color='black', face='bold', margin=margin(t=8)),
+    axis.title.y = element_text(size=12, color='black', face='bold', margin=margin(r=8)),
+    axis.ticks = element_line(color='black'),
+    panel.border = element_rect(color='black', fill=NA),
+    panel.background = element_rect(fill=NA),
+    legend.title = element_blank(),
+    axis.text=element_text(size=9, color='black')
+  )
 
 
 
