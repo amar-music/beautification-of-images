@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image, ImageFilter, ImageStat, ImageColor
 import pandas as pd
 
-RUN = True
+RUN = False
 
 #### Functions
 # Edge detection scoring
@@ -13,13 +13,6 @@ def edge_score(img):
     edges = image.filter(ImageFilter.FIND_EDGES) # 3x3 Laplacian filter
     return np.mean(edges)
 
-# Color distribution scoring
-#def hue_score(img):
-#    image = Image.open(img)
-#    hsv_image = image.convert("HSV")
-#    hsv = np.array(hsv_image)
-#    hsv = hsv[:, :, 1]
-
 # Saturation score
 def sat_score(img):
     image = Image.open(img)
@@ -27,8 +20,6 @@ def sat_score(img):
     hsv = np.array(hsv_image)
     saturations = hsv[:, :, 1]
     return np.mean(saturations)
-
-
 
 # Blur scoring
 #def blur_score(img):
@@ -40,7 +31,6 @@ def contrast_score(img):
     image = image.convert("L")
     stats = ImageStat.Stat(image)
     return stats.stddev[0]
-
 
 # Brightness scoring
 def bright_score(img):
@@ -55,14 +45,13 @@ def remove_chars(a_string, number_to_remove):
     return a_string[number_to_remove:]
 
 
+
 # Load all images in folder
 path = "../../jsPsych_ImageRating/stimuli/"
 images = list(os.listdir(path))
 
-
 # Create rows for dataframe
 rows = []
-
 
 # Edge scores for all images
 if RUN:
@@ -93,5 +82,3 @@ if RUN:
     df = pd.DataFrame(rows, columns=["cat", "img", "edge_score", "contrast_score", "brightness_score", "saturation_score"])
     df.to_csv("../../Data Analysis/extraction/output.csv", index=False)
 
-else:
-    print("Please enable the run variable")
