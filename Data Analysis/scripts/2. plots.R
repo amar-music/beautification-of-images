@@ -27,12 +27,12 @@ ggplot(dfa.cont, aes(x=alpha, y=acc)) +
   ) +
   geom_vline(xintercept=0, linetype=2) +
   theme(
-    strip.text.x = element_text(size=12, color='black', face='bold', margin=margin(b=8)),
+    strip.text.x = element_text(size=12, color='#414141', face='bold', margin=margin(b=8)),
     strip.background = element_rect(fill=NA),
-    axis.title.x = element_text(size=12, color='black', face='bold', margin=margin(t=8)),
-    axis.title.y = element_text(size=12, color='black', face='bold', margin=margin(r=8)),
-    axis.ticks = element_line(color='black'),
-    panel.border = element_rect(color='black', fill=NA),
+    axis.title.x = element_text(size=12, color='#414141', face='bold', margin=margin(t=8)),
+    axis.title.y = element_text(size=12, color='#414141', face='bold', margin=margin(r=8)),
+    axis.ticks = element_line(color='#414141'),
+    panel.border = element_rect(color='#414141', fill=NA),
     panel.background = element_rect(fill=NA),
     legend.title = element_blank(),
     legend.position = c(0.80, 0.15), 
@@ -40,7 +40,7 @@ ggplot(dfa.cont, aes(x=alpha, y=acc)) +
     legend.text = element_text(size=8),
     legend.key.size = unit(0.4, 'cm'),
     legend.key = element_rect(fill='NA'),
-    axis.text=element_text(size=9, color='black')
+    axis.text=element_text(size=9, color='#414141')
   )
 ggsave(
   'cont_asym.pdf',
@@ -69,12 +69,12 @@ ggplot(dfa, aes(abs(alpha), acc, group=positive, col=as.factor(positive))) +
     y = "Proportion Agreement with GANalyze"
   ) +
   theme(
-    strip.text.x = element_text(size=12, color='black', face='bold', margin=margin(b=8)),
+    strip.text.x = element_text(size=12, color='#414141', face='bold', margin=margin(b=8)),
     strip.background = element_rect(fill=NA),
-    axis.title.x = element_text(size=12, color='black', face='bold', margin=margin(t=8)),
-    axis.title.y = element_text(size=12, color='black', face='bold', margin=margin(r=8)),
-    axis.ticks = element_line(color='black'),
-    panel.border = element_rect(color='black', fill=NA),
+    axis.title.x = element_text(size=12, color='#414141', face='bold', margin=margin(t=8)),
+    axis.title.y = element_text(size=12, color='#414141', face='bold', margin=margin(r=8)),
+    axis.ticks = element_line(color='#414141'),
+    panel.border = element_rect(color='#414141', fill=NA),
     panel.background = element_rect(fill=NA),
     legend.title = element_blank(),
     legend.position = c(0.80, 0.15), 
@@ -82,7 +82,7 @@ ggplot(dfa, aes(abs(alpha), acc, group=positive, col=as.factor(positive))) +
     legend.text = element_text(size=8),
     legend.key.size = unit(0.4, 'cm'),
     legend.key = element_rect(fill='NA'),
-    axis.text=element_text(size=9, color='black')
+    axis.text=element_text(size=9, color='#414141')
   )
 ggsave(
   'poly_regression.pdf',
@@ -112,17 +112,29 @@ ggplot(df4a, aes(x=alpha, y = score, group = feature, color = feature)) +
     y = "Standardized Score"
   ) +
   theme(
-    strip.text.x = element_text(size=12, color='black', face='bold', margin=margin(b=8)),
+    strip.text.x = element_text(size=12, color='#414141', face='bold', margin=margin(b=8)),
     strip.background = element_rect(fill=NA),
-    axis.title.x = element_text(size=12, color='black', face='bold', margin=margin(t=8)),
-    axis.title.y = element_text(size=12, color='black', face='bold', margin=margin(r=8)),
-    axis.ticks = element_line(color='black'),
-    panel.border = element_rect(color='black', fill=NA),
+    axis.title.x = element_text(size=12, color='#414141', face='bold', margin=margin(t=8)),
+    axis.title.y = element_text(size=12, color='#414141', face='bold', margin=margin(r=8)),
+    axis.ticks = element_line(color='#414141'),
+    panel.border = element_rect(color='#414141', fill=NA),
     panel.background = element_rect(fill=NA),
     legend.position = "none",
-    axis.text=element_text(size=9, color='black')
+    axis.text=element_text(size=9, color='#414141')
   )
-
+ggsave(
+  'img_features.pdf',
+  plot = last_plot(),
+  device = 'pdf',
+  path = '../Paper/images/results',
+  scale = 1,
+  width = 18,
+  height = 10,
+  units = "cm",
+  dpi = 300,
+  limitsize = TRUE,
+  bg = NULL
+)
 
 
 
@@ -133,19 +145,40 @@ ggplot(tbl, aes(x=value, col=key, group_by=alpha)) +
   geom_freqpoly(aes(group=key),col="black", bins=257, lwd=0.2) +
   #scale_color_manual(values=c(red="#ff0000", green="#00ff00", blue="#0000ff")) +
   xlim(0, 256) +
-  facet_wrap((cat~alpha), ncol=5) +
+  labs(
+    x = "Pixel Intensity",
+    y = "Count"
+  ) +
+  facet_grid(cat~alpha, labeller = labeller(cat = names(c("fish", "hen", "swan")))) +
   theme(
-    strip.text.x = element_text(size=12, color='black', face='bold', margin=margin(b=8)),
+    strip.text.x = element_text(size=12, color='#414141', face='bold', margin=margin(b=8)),
+    strip.text.y = element_blank(),
     strip.background = element_rect(fill=NA),
-    axis.title.x = element_text(size=12, color='black', face='bold', margin=margin(t=8)),
-    axis.title.y = element_text(size=12, color='black', face='bold', margin=margin(r=8)),
-    axis.ticks = element_line(color='black'),
+    axis.title.x = element_text(size=12, color='#414141', face='bold', margin=margin(t=8)),
+    axis.title.y = element_blank(),
+    axis.ticks = element_line(color='#414141'),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
     panel.border = element_rect(color='black', fill=NA),
     panel.background = element_rect(fill=NA),
+    panel.spacing.y = unit(1, "lines"),
     legend.title = element_blank(),
-    axis.text=element_text(size=9, color='black')
+    legend.position = "none",
+    axis.text=element_text(size=9, color='#414141')
   )
-
+ggsave(
+  'col_dists.pdf',
+  plot = last_plot(),
+  device = 'pdf',
+  path = '../Paper/images/results',
+  scale = 1,
+  width = 18,
+  height = 10,
+  units = "cm",
+  dpi = 300,
+  limitsize = TRUE,
+  bg = NULL
+)
 
 
 ## Mean RT over trials ----

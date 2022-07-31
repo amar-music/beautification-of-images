@@ -14,6 +14,7 @@ library("lavaan")
 library("lavaan.survey")
 library("quickpsy")
 library("tidyr")
+library("purrr")
 
 
 ## Load functions ----
