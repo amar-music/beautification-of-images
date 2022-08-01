@@ -10,7 +10,7 @@ import pandas as pd
 
 root_folder = r''
 
-data_filename = 'data_table4.json'
+data_filename = 'data_table.json'
 
     
 # Parse the data file
