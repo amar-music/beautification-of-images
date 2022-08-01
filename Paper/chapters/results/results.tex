@@ -12,7 +12,7 @@ After removing participants that did not satisfy the criteria listed above, our 
 
 
 \subsection{Structural Models}
-\begin{table}[h]
+\begin{table}[!tb]
 	\centering
 	\caption{Model Fit Indices}
 	\begin{tabular*}{1\textwidth}{@{\extracolsep{\fill}} l c c c c c @{}}
@@ -25,17 +25,20 @@ After removing participants that did not satisfy the criteria listed above, our 
 	\label{tab:fit}
 \end{table}
 
+\begin{figure}[!tb]
+	\caption{Final MIMIC Model}
+	\label{fig:finalmodel}
+	\includegraphics[width=1\linewidth]{images/model3.pdf}
+\end{figure}
+
+
 Our first model, the CFA on the shortened AEQ, resulted in a validation of the shortened questionnaire. The model fit can be seen in Table~\ref{tab:fit} under CFA. All fit indices, apart from the conservative $\chi^{2}$, were in the acceptable range (i.e., $>.90$ for CFI and TLI, and $<.08$ for RMSEA). All standardized factor loadings from the latent variable on the measured indices were significant ($p<.001$) and strong enough to justify interpretation ($>.80$). We interpret these results as evidence for our shortened version of the AEQ being adequate for measuring an individual's aesthetic experience.
 
 For our first MIMIC model, we also obtained good fit measures, as seen in Table~\ref{tab:fit} under MIMIC 1. This model included an effect of sex, age, and nationality on aesthetic experience, and an effect of sex, age, and nationality on the proportion of agreement with the GAN. While the measurement part of the model remained largely unchanged, the new structural part of the model only showed a significant effect of nationality on aesthetic experience ($\beta = 0.01, p<.05$). This finding may have consequences for the AEQ itself, as \textcite{wanzerExperiencingFlowViewing2020} had mentioned that their own sample only included US participants. On the other hand, we did not find an effect of age and sex on aesthetic experience, unlike \textcite{wanzerExperiencingFlowViewing2020}. The most important finding here is that there was no effect of the latent aesthetic experience on the behavioral outcome variable of aesthetic judgement, which has important implications for the rest of our study.
 
 For our second MIMIC model, illustrated in Figure~\ref{fig:finalmodel}, we made changes on theoretical bases. The fit indices were equally good, as seen in Table~\ref{tab:fit} under MIMIC 2, but we believe this second model makes more sense from a theoretical point of view. The standardized factor loadings were again very similar. Again, the effects of age and sex on aesthetic experience and aesthetic judgement were not significant. Nationality still has a significant effect on aesthetic experience here, but not on the cultural indicator. There was also no significant effect of aesthetic experience on aesthetic judgement here.
 
-\begin{figure}[t]
-	\caption{Final MIMIC Model}
-	\label{fig:finalmodel}
-	\includegraphics[width=1\linewidth]{images/model3.pdf}
-\end{figure}
+
 
 We can interpret these results as there being no effect of a person's demographic characteristics and their aesthetic experience on the outcome of the behavioral image rating task. This implies that the simple image comparison we used in our experiment is not influenced by seemingly relevant factors, pointing to a potential universal nature of aesthetic appreciation of the images we provided in the task. Furthermore, this will make our interpretations of the factors determining the aesthetic value of an image through GANalyze more generalizable.
 
@@ -43,7 +46,7 @@ We can interpret these results as there being no effect of a person's demographi
 
 \subsection{Behavioral Task}
 
-\begin{figure}[h!]
+\begin{figure}[!tb]
 	\caption{Behavioral Results from the Image Rating Task}
 	\label{fig:psychometric_curves}
 	\centering
@@ -62,24 +65,27 @@ We found a difference between the rating of high-$|\alpha|$ images for positive 
 
 A two-way ANOVA with as factors the broad category labels and the position of the higher-$\alpha$ image revealed that there was no effect of broad category, $F(7,215)=0.009, \ p=1$, and no effect of stimulus position, $F(1,215)=0.000, \ p=.99$.
 
-\subsection{GANalyze Parameters}
-The results from analyzing the image features of the 7,335 are displayed in Figure~\ref{fig:img_features}. Brightness, contrast, edges, and saturation all increase along with the $\alpha$-values. Notably, the curves for contrast and edges start slowing down at high positive $\alpha$-values. This asymmetrical shape was not expected and has theoretical implications.
-
-The changes in color distribution for three random image sequences can be seen in Figure~\ref{fig:col_dists}. For the low $\alpha$-values, the colors tend to be clustered together on the lower end of the scale, indicating mostly dark gray colors. As the $\alpha$ increases, the color channels generally become wider and shift more to extreme values, either high or low. This means that the images are getting a larger diversity of colors that are also more intense.
-
-\begin{figure}[!tb]
+\begin{figure}[!t]
 	\caption{Image Features}
 	\label{fig:img_features}
 	\includegraphics[width=1\linewidth]{images/results/img_features.pdf}
 	{\textit{Note.} Figure depicting the change in average brightness, contrast, edges, and saturation from low-$\alpha$ to high-$\alpha$ images, illustrating that an increase in these features correlates with aesthetic preference. Values have been transformed from pixel intensities to z-scores for comparability.}
 \end{figure}
 
-\begin{figure}[!tb]
+\begin{figure}[!t]
 	\caption{Color Distributions}
 	\label{fig:col_dists}
 	\includegraphics[width=1\linewidth]{images/results/col_dists_edit.pdf}
 	{\textit{Note.} Figure depicting the distributions of RGB pixel intensities for five $\alpha$-values of three image sequences. The image corresponding to the distribution is embedded in the top-right of each histogram.}
 \end{figure}
+
+\subsection{GANalyze Parameters}
+The results from analyzing the image features of the 7,335 are displayed in Figure~\ref{fig:img_features}. Brightness, contrast, edges, and saturation all increase along with the $\alpha$-values. Notably, the curves for contrast and edges start slowing down at high positive $\alpha$-values. This asymmetrical shape was not expected and has theoretical implications.
+
+The changes in color distribution for three random image sequences can be seen in Figure~\ref{fig:col_dists}. For the low $\alpha$-values, the colors tend to be clustered together on the lower end of the scale, indicating mostly dark gray colors. As the $\alpha$ increases, the color channels generally become wider and shift more to extreme values, either high or low. This means that the images are getting a larger diversity of colors that are also more intense.
+
+
+
 
 
 
