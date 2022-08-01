@@ -51,21 +51,6 @@ summary(poly_reg)
 
 ##
 
-dfa.long <- df %>% 
-  group_by(label_2) %>%  
-  summarize(acc = mean(cor),
-            sd = sd(cor),
-            count = n(),
-            nCor = sum(cor),
-            positive = positive) %>%
-  mutate (se = sd / sqrt(count),
-          lower_ci = lower_ci(acc, se, count),
-          upper_ci = upper_ci(acc, se, count))
-
-
-anova1 <- aov(acc ~ label_2, dfa.long)
-summary(anova1)
-
 barplot(by(data=df$cor, INDICES = df$age, FUN = mean))
 
 
@@ -107,6 +92,29 @@ ggplot(df.cont, aes(x=alpha, y=cor, group=label_2, col=label_2)) +
 
 mean(df.cont$aeq_total)
 hist(df.cont$aeq_total)
+
+
+
+# Confounding factors -----------------------------------------------------
+df.anova <- df.cont %>% 
+  group_by(label_2, alpha, c_key, trial) %>%  
+  summarize(acc = mean(cor))
+
+
+aov_test <- aov(acc ~ label_2 + c_key + trial, df.anova)
+summary(aov_test)
+
+
+
+
+ggplot(df.anova, aes(label_2)) +
+  geom_histogram()
+
+
+ggplot(df.anova, aes(label_2, acc)) +
+  geom_point() +
+  ylim(0, 1)
+
 
 
 
