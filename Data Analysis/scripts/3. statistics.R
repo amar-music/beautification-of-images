@@ -49,6 +49,11 @@ ggplot(dfa, aes(abs(alpha), acc, group=positive, col=as.factor(positive))) +
 poly_reg <- lm(acc ~ poly(abs(alpha), 2, raw = TRUE) + positive, data = dfa)
 summary(poly_reg)
 
+
+poly_reg2 <- lm(acc ~ poly(abs(alpha), 3, raw = TRUE) + positive, data = dfa)
+summary(poly_reg2)
+
+anova(poly_reg, poly_reg2)
 ##
 
 barplot(by(data=df$cor, INDICES = df$age, FUN = mean))
