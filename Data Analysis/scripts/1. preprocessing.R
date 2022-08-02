@@ -165,44 +165,6 @@ qps_fit.sym <- quickpsy(df.cont, alpha, cor, guess=TRUE, lapses=TRUE, ci=.99)
 
 
 
-
-
-# Dataframes for confounding factors --------------------------------------
-#dfa.long
-
-
-
-
-# Dataframes for SEM ------------------------------------------------------
-df2 <- df %>% 
-  group_by(sub, emotional, cultural, perceptual, understanding, `flow-proximal`,
-           `flow-experience`, aeq_total) %>%  
-  summarize(cor = mean(cor),
-            ntrials = n())
-df2 <- merge(df2, demographics_subjects, by.x='sub', by.y='subject_id')
-
-
-## Remove all missing ----
-df2[df2 == 'CONSENT REVOKED'] <- NA
-df2[df2 == 'DATA EXPIRED'] <- NA
-df3 <- na.omit(df2)
-df3$sex <- ifelse(df3$sex=="Male",1,0) # male=1, female=0
-df3$sex <- as.factor(df3$sex)
-#df3$nationality <- as.factor(df3$nationality)
-
-df3.2 <- subset(df3, select = c(
-  'emotional', 'cultural', 'perceptual', 'understanding', 'flow-proximal', 
-  'flow-experience', 'age', 'sex', 'nationality', 'cor'))
-
-# df3.3 <- df3.2
-# 
-# 
-# df3.3 <- df3.3 %>% mutate(dummy=1) %>%
-#   spread(key=nationality, value=dummy, fill=0)
-
-
-
-
 # Dataframes for image features -------------------------------------------
 df4 <- read_csv('extraction/image_features.csv')
 
@@ -238,16 +200,38 @@ tbl$key <- factor(tbl$key, levels=c("red", "green", "blue"))
 
 
 
+
+
+
+# Dataframes for SEM ------------------------------------------------------
+# df2 <- df %>% 
+#   group_by(sub, emotional, cultural, perceptual, understanding, `flow-proximal`,
+#            `flow-experience`, aeq_total) %>%  
+#   summarize(cor = mean(cor),
+#             ntrials = n())
+# df2 <- merge(df2, demographics_subjects, by.x='sub', by.y='subject_id')
+
+
+## Remove all missing ----
+# df2[df2 == 'CONSENT REVOKED'] <- NA
+# df2[df2 == 'DATA EXPIRED'] <- NA
+# df3 <- na.omit(df2)
+# df3$sex <- ifelse(df3$sex=="Male",1,0) # male=1, female=0
+# df3$sex <- as.factor(df3$sex)
+# #df3$nationality <- as.factor(df3$nationality)
+# 
+# df3.2 <- subset(df3, select = c(
+#   'emotional', 'cultural', 'perceptual', 'understanding', 'flow-proximal', 
+#   'flow-experience', 'age', 'sex', 'nationality', 'cor'))
+
+
+
 # Dataframes for world map ------------------------------------------------
-nationalities <- data.frame(table(demographics$Nationality))
-levels(nationalities$Var1)[levels(nationalities$Var1)=='United States'] <- 'USA'
-levels(nationalities$Var1)[levels(nationalities$Var1)=='United Kingdom'] <- 'UK'
-levels(nationalities$Var1)[levels(nationalities$Var1)=='Russian Federation'] <- 'Russia'
-levels(nationalities$Var1)[levels(nationalities$Var1)=='Congo the Democratic Republic of the'] <- 
-  'Democratic Republic of the Congo'
-world_map <- map_data("world")
+#nationalities <- data.frame(table(demographics$Nationality))
+#levels(nationalities$Var1)[levels(nationalities$Var1)=='United States'] <- 'USA'
+#levels(nationalities$Var1)[levels(nationalities$Var1)=='United Kingdom'] <- 'UK'
+#levels(nationalities$Var1)[levels(nationalities$Var1)=='Russian Federation'] <- 'Russia'
+#levels(nationalities$Var1)[levels(nationalities$Var1)=='Congo the Democratic Republic of the'] <- 
+#  'Democratic Republic of the Congo'
+#world_map <- map_data("world")
 
-
-
-# Seed check
-length(unique(df$seed))
