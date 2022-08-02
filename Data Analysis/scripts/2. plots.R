@@ -103,10 +103,17 @@ ggsave(
 
 
 ## Image features ----
+feature_names <- c(
+  'brightness' = "Brightness",
+  'contrast' = "Contrast",
+  'edges' = "Edges",
+  'saturation' = "Saturation"
+)
+
 ggplot(df4a, aes(x=alpha, y = score, group = feature, color = feature)) + 
   geom_smooth(lwd=1, method='gam') +
   ylim(c(-2.5, 2.5)) +
-  facet_grid(~feature) +
+  facet_grid(~feature, labeller = as_labeller(feature_names)) +
   labs(
     x = expression(bold(paste(alpha, '-value'))),
     y = "Standardized Score"
