@@ -106,7 +106,7 @@ ggsave(
 feature_names <- c(
   'brightness' = "Brightness",
   'contrast' = "Contrast",
-  'edges' = "Edges",
+  'edges' = "Sharpness",
   'saturation' = "Saturation"
 )
 
