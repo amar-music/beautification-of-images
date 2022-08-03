@@ -5,20 +5,67 @@
 
 \subsection{Validation}
 % Validation was good
-The behavioral experiment showed that GANalyze was indeed able to generate images of increasing aesthetic value, as seen in the positive slope between the proportion agreement with the neural network and the $\alpha$-values. Even when forced to choose between two nearly identical images, our participants picked the image GANalyze generated to be more beautiful at rates above chance. The relation between GANalyze's $\alpha$-values and our participant's preference followed the shape of a typical psychometric curve in 2-AFC discrimination tasks, implying that the internal values of the neural network translate to human aesthetic appreciation similar to how for example auditory stimulus intensity translates to human auditory perception.  Taken together, these findings hint towards objective properties of beauty. As we have confirmed that GANalyze is indeed able to manipulate the aesthetic qualities of images, we can now use these images to find what makes an image beautiful.
+Our behavioral experiment showed that GANalyze was indeed able to generate images of increasing aesthetic value as seen in the positive slope between the proportion agreement with the neural network and the $\alpha$-values. Even when forced to choose between two nearly identical images, our participants picked the image GANalyze generated to be more beautiful at rates above chance. The relation between GANalyze's $\alpha$-values and our participant's preference followed the shape of a typical psychometric curve in 2-AFC discrimination tasks, implying that the internal values of the neural network translate to human aesthetic appreciation similar to how for example auditory stimulus intensity translates to human auditory perception. Taken together, these findings hint towards objective properties of beauty. As we have confirmed that GANalyze is indeed able to manipulate the aesthetic qualities of images, we can now use these images to find what makes an image beautiful.
 
-\subsection{Behavioral Findings}
-We found that while our participants were more likely to agree with the network for higher $\alpha$-values, their responses to high $\alpha$-values was different from low $\alpha$-values.
-%Steep curve represents good stimulus representation
+
+\subsection{Demographic Effects}
+% Structural modeling interpretation
+Through structural equation modeling, we have determined that while a shortened version of the AEQ is valid, the measured aesthetic experience does not influence the appraisal of image aesthetics in a behavioral experiment. Age and sex also have no effect on neither aesthetic experience, nor the aesthetic judgement in the experiment. Nationality on the other hand, may have a small effect on the aesthetic experience, which was not found in the original paper on the AEQ’s development by \textcite{wanzerExperiencingFlowViewing2020}. 
 
 % Cross-cultural effects etc
 
-%\subsubsection{Visual Definitions}
+
+\subsection{Behavioral Findings}
+% Asymmetry
+We found that while our participants were more likely to agree with the network for higher $\alpha$-values, their responses to high $\alpha$-values were different from those to low $\alpha$-values. To clarify this asymmetry: images that the network generated to be much less aesthetic than the neutral image were indeed rated much worse. At the most extreme value, namely $\alpha = -0.25$, our participants agreed with GANalyze $93\%$ of the time that the image with $\alpha = 0$ (i.e., the neutral image) was more beautiful than the image with $\alpha = -0.25$. From this we can conclude that GANalyze is very capable of making images \textit{less} aesthetic. When we look at the positive $\alpha$'s, we see a similar pattern. However, for the most extreme value, $\alpha = 0.25$, the agreement was at $81\%$. While we can still conclude that GANalyze is capable of making images more beautiful, the effects are less pronounced. 
+
+It is not immediately clear whether this effect is caused by human perception or GANalyze's parameters. To investigate potential causes stemming from human perception, we will first illustrate a number of relevant theories from cognitive and biological psychology, after which we will situate our finding in the broader theoretical scope. Second, we will look into the possibility that it is the generated stimuli themselves that have caused this asymmetry.
+
+\subsubsection{Perception-Based Explanation}
+% Supernormal stimuli and peak shift principle
+A supernormal stimulus in evolutionary and biological psychology is an exaggeration of a natural stimulus that evokes a stronger response than the natural one. We encounter these supernormal stimuli everywhere in daily life, from advertisements to propaganda \parencite{barrett2010supernormal}. It follows logically that applying stimuli such as these to art would evoke a stronger response. \textcite{costa2006aesthetic} found that people indeed have an aesthetic preference for exaggerated facial features such as roundness of eyes and lips. \textcite{ramachandran1999science} introduced a framework, the peak shift principle, in an attempt to `explain art'. The peak shift principle builds upon supernormal stimuli to claim that art is characterized by caricatures, referring to examples such as prehistoric cave paintings and the Venus `fertility' figures \parencite{ramachandran1999science}. In this framework, amplifying the distinguishing features of an object, even to the point of being completely unnatural, should result in higher aesthetic value. This is a controversial framework however, as it has been claimed that it is full of overly ambitious ideas, flawed argumentation, and unsubstantiated claims \parencite{hyman2010art}. While we have generally found an effect that seems to be in line with that framework in our study, the asymmetry of the positive and negative $\alpha$'s raises questions. 
+
+% Relate findings to peak shift
+From a peak shift perspective, it does not make sense that our participants show a decreased effect for the high-$\alpha$ images, as the framework would have predicted that the aesthetic reaction to the (perhaps unnaturally) exaggerated features of $\alpha=0.25$~images should be at least as strong as for $\alpha=-0.25$~images. The asymmetry we found then implies that there is likely more to it than \textcite{ramachandran1999science} had proposed. We argue that perceived realism also plays an important role in the aesthetic evaluation of images that are presented as a photograph. Taking realism into account, it makes sense that the most extreme negative $\alpha$'s are rated more convincingly compared to extreme positive $\alpha$'s. It is the images with extreme positive $\alpha$'s that may be perceived as simply `too much', or `artificial-looking'.
+
+\subsubsection{GANalyze-Based Explanation}
+It is also possible that the asymmetry was caused by the stimuli themselves rather than human perception. Inspecting the trajectories of the contrast and sharpness in Figure~\ref{fig:img_features}, shows that their effects slow down for the high positive $\alpha$-values. This could be the reason for these particular images not being rated much higher than those of adjacent lower $\alpha$-values. Why exactly GANalyze reduced the effects of contrast and sharpness is unclear. Perhaps the GAN had actually learned that unrealistic images with extreme image features are not appraised positively and therefore reduced the effects of contrasts and sharpness. But this hypothetical compensation seems not to have been very effective, as the extreme high $\alpha$-images are still rated lower than expected.
+
+% Future studies on parameters
+Further research can potentially test this theory by grouping image sequences based on the intensities of contrast and sharpness of high-$\alpha$ images. This way, it could be possible to find out whether the compensatory moderation of contrast and sharpness indeed results in images of higher aesthetic quality.
+
+
+
+\subsection{A Visual Definition of Beauty}
 %Images here
+\begin{figure}[!ht]
+	\caption{(\textbf{PLACEHOLDER}) Visual Definition of Beauty}
+	\label{img:visual_def}
+	\includegraphics[width=1\linewidth]{images/temp_stimuli}
+\end{figure}
 
-%\subsection{GANalyze Parameters}
-%st2
+Just as \textcite{goetschalckxGANalyzeVisualDefinitions2019} used GANalyze to make a visual definition of memorability, we made a visual definition of aesthetics. Our visual definition can be seen in Figure~\ref{img:visual_def}. We quantified the changes made to the images in four image features as suggested by \textcite{ke2006design}, shown in Figure~\ref{fig:img_features}. All of the image features we studied increased along with the $\alpha$-values. It would be naive however to claim that simply increasing the brightness, contrast, sharpness, and saturation of any given image would increase its aesthetic quality.
 
-% Interesting follow-up question: Would turning up parameters like brightness, saturation etc result in the same effect? Or has the GAN learned a specific way of applying these parameters?
+We have reasons to believe that instead of simply increasing these parameters, GANalyze instead used sophisticated methods acquired through deep learning to determine which features to modify, how intense the modification should be given a certain $\alpha$-value, and how the different image features interact with each other. For example, looking at the color distributions for three image sequences in Figure~\ref{fig:col_dists} shows that while there is indeed a pattern of moving towards the extremes of the spectrum, the way this happens differs between the image sequences. The most prominent colors tend to increase while the others decrease, but this differs for every image.
+
+\subsubsection{Image Features}
+\paragraph{Brightness.} The mean pixel values of grayscale images increased along with the $\alpha$-values, meaning that the images got brighter. While this is consistent with the literature, brightness in the context of aesthetics is often evaluated as relative brightness of the main object compared to the background \parencite{ke2006design, obrador2010role}, which we have not done in this study. 
+
+\paragraph{Contrast.} The spread of the grayscale pixels values grew, meaning that the contrast of the images increased. Contrast has also generally been found to correlate with aesthetic appraisal \parencite{wong2009saliency}, though they tend to differentiate between lightning contrast and color contrast, which we have not considered in the present study.
+
+\paragraph{Sharpness.} The sharpness of images increased, which also a common finding \parencite{redi2015beauty}. Interestingly, for some images, GANalyze made the main subject sharper and added blur to the background, which is a more advanced transformation than simply making everything sharper. Sharpness in this sense contributes to the main subject of the image being featured more prominently, which is an important factor in aesthetic appraisal \parencite{wong2009saliency}.
+
+\paragraph{Saturation.} Studies generally find that increasing the saturation of the main subject of an image is important for its aesthetics \parencite{wong2009saliency}. GANalyze however seems to increase the saturation for the image as a whole.
+
+
+\subsubsection{Limitations}
+One limitation of our study is that it was limited to natural looking images being compared to a slightly different variation of themselves. Beauty and art are more than just a combination of low-level image features and colors. To expand on the studies on aesthetics using GANalyze, future studies could use our stimuli to compare images from different image sequences to each other. As we have on average 20 ratings per individual image, it should be possible to compute the aesthetic value of each image and then compare images from different sequences with a similar score. This way, it may be possible to find more sophisticated features underlying the aesthetic value of these images, like for example image composition parameters such as the rule of thirds, and principles from Gestalt psychology such as symmetry.
+
+Another limitation is that we approached this mainly from the perspective of objective beauty. We did not pay much attention to individual differences in aesthetic appraisal other than broadly comparing effects demographic variables on the agreement with GANalyze. As it is believed that our perception of beauty is an interaction between subjective and objective variables, it may prove beneficial to conduct a deeper investigation into the subjective part of the equation of beauty.
+
+%\subsubsection{(temp) Philosophical Implications}
+% Refer to introduction
+
+
 
 \end{document}
