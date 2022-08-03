@@ -29,6 +29,7 @@ After removing participants that did not satisfy the criteria listed above, our 
 	\caption{Final MIMIC Model}
 	\label{fig:finalmodel}
 	\includegraphics[width=1\linewidth]{images/model3.pdf}
+	{\textit{Note.} Rectangles are depicting observed variables while the oval is depicting the latent variable of interest. The numbers attached to each arrow represent the factor loadings. For the structural model, factors have been standardized on `Emotional'.}
 \end{figure}
 
 
@@ -69,7 +70,7 @@ A two-way ANOVA with as factors the broad category labels and the position of th
 	\caption{Image Features}
 	\label{fig:img_features}
 	\includegraphics[width=1\linewidth]{images/results/img_features.pdf}
-	{\textit{Note.} Figure depicting the change in average brightness, contrast, edges, and saturation from low-$\alpha$ to high-$\alpha$ images, illustrating that an increase in these features correlates with aesthetic preference. Values have been transformed from pixel intensities to z-scores for comparability.}
+	{\textit{Note.} Figure depicting the change in average brightness, contrast, sharpness, and saturation from low-$\alpha$ to high-$\alpha$ images, illustrating that an increase in these features correlates with aesthetic preference. Values have been transformed from pixel intensities to z-scores for comparability.}
 \end{figure}
 
 \begin{figure}[!t]
@@ -80,7 +81,7 @@ A two-way ANOVA with as factors the broad category labels and the position of th
 \end{figure}
 
 \subsection{GANalyze Parameters}
-The results from analyzing the image features of the 7,335 are displayed in Figure~\ref{fig:img_features}. Brightness, contrast, edges, and saturation all increase along with the $\alpha$-values. Notably, the curves for contrast and edges start slowing down at high positive $\alpha$-values. This asymmetrical shape was not expected and has theoretical implications.
+The results from analyzing the image features of the 7,335 are displayed in Figure~\ref{fig:img_features}. Brightness, contrast, sharpness, and saturation all increase along with the $\alpha$-values. Notably, the curves for contrast and sharpness start slowing down at high positive $\alpha$-values. This asymmetrical shape was not expected and has theoretical implications.
 
 The changes in color distribution for three random image sequences can be seen in Figure~\ref{fig:col_dists}. For the low $\alpha$-values, the colors tend to be clustered together on the lower end of the scale, indicating mostly dark gray colors. As the $\alpha$ increases, the color channels generally become wider and shift more to extreme values, either high or low. This means that the images are getting a larger diversity of colors that are also more intense.
 
