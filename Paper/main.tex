@@ -45,6 +45,10 @@
 \titleformat{\subsubsection}{\normalfont\normalsize}{}{0pt}{\normalsize\bfseries\itshape}
 \titlespacing*{\subsubsection}{0pt}{6pt}{1pt}[0pt]
 
+% Format paragraph
+%\titleformat{\paragraph}{}{}{0pt}{\bfseries}
+\titlespacing*{\paragraph}{16pt}{0pt}{4pt}[0pt]
+
 % Format figures
 \captionsetup[figure]{labelsep=newline, labelfont=bf, singlelinecheck=false, font=onehalfspacing, textfont=it}
 
@@ -63,10 +67,10 @@
 \author{Amar Music}
 
 \begin{document}
-	
+
 	\begin{titlepage}
 		\centering
-		{\huge\bfseries Beautification of Images by Generative Adversarial Networks (GANs)\par}
+		{\huge\bfseries Beautification of Images by Generative Adversarial Networks\par}
 		\vspace{1cm}
 		{\Large\itshape Amar Music\par}
 		Master of Psychology: Theory and Research\par
@@ -80,10 +84,11 @@
 		{\large \today\par}
 	\end{titlepage}
 	
-	% Define all variables
-	\tableofcontents
 	
 	\subfile{chapters/abstract/abstract}
+	\pagebreak
+	
+	\tableofcontents
 	\pagebreak
 	
 	\subfile{chapters/introduction/introduction}
