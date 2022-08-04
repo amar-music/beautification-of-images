@@ -1,3 +1,3 @@
-# beautification-of-images
+# Beautification of Images
 
-Please unzip /jsPsych_ImageRating/stimuli.zip to access the used stimulusset.
+Unzip /jsPsych_ImageRating/stimuli.zip to access the used stimulusset.
