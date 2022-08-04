@@ -1,7 +1,7 @@
 %\documentclass[11pt, twocolumn]{article} % 2 columns
 %\usepackage[a4paper, margin=0.4in]{geometry} % 2 columns
 \documentclass[12pt, a4paper]{article}
-\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[a4paper, margin=2.5cm]{geometry}
 \usepackage{graphicx}\graphicspath{ {images/} }
 %\usepackage[T1]{fontenc}
 %\usepackage[utf8]{inputenc}
@@ -16,13 +16,13 @@
 \usepackage{setspace}\onehalfspacing
 \usepackage{titlesec}
 \usepackage{lipsum}
-%\usepackage{tocloft} % ToC spacing
+\usepackage{tocloft} % ToC spacing
 
 % Import references
 \addbibresource{bibliography.bib}
 
 % ToC spacing
-%\setlength\cftparskip{-8pt}
+\setlength\cftparskip{-1pt}
 %\setlength\cftbeforesecskip{0pt}
 
 % Figure sequential count
@@ -70,22 +70,71 @@
 
 	\begin{titlepage}
 		\centering
-		{\huge\bfseries Beautification of Images by Generative Adversarial Networks\par}
+		\vspace{2cm}
+		{\huge\bfseries KU LEUVEN\par}
 		\vspace{1cm}
-		{\Large\itshape Amar Music\par}
-		Master of Psychology: Theory and Research\par
-		\vspace{0.5cm}
-		{\scshape\large KU Leuven\par}
-		Faculty of Psychology and Educational Sciences\par
-
+		{\huge\scshape Faculty of Psychology and Educational Sciences\par}
+		\vspace{4cm}
+		{\Large\bfseries BEAUTIFICATION OF IMAGES BY GENERATIVE ADVERSARIAL NETWORKS\par}
+		\vspace{4.5cm}
+		\begin{flushright}
+			\large Master's thesis submitted for the \par degree of Master of Science in \par Master of Psychology: Theory and \par Research by \par
+			{\large\bfseries Amar Music \par}
+			\vspace{1cm}
+			{\large Supervisor: Prof. Johan Wagemens\par}
+			{\large Co-supervisor: Dr. Derya Soydaner\par}
+			{\large Daily advisor: Anne-Sofie Maerten\par}
+		\end{flushright}
 		\vfill
-		\large Supervisor: Prof. Johan Wagemens\par
-		\large Co-supervisor: Anne-Sofie Maerten\par
-		{\large \today\par}
+		{\large 2022\par}
 	\end{titlepage}
+
+	\newpage \pagenumbering{gobble} \  \newpage
+	
+	\begin{titlepage}
+		\centering
+		\vspace{2cm}
+		{\huge\bfseries KU LEUVEN\par}
+		\vspace{1cm}
+		{\huge\scshape Faculty of Psychology and Educational Sciences\par}
+		\vspace{4cm}
+		{\Large\bfseries BEAUTIFICATION OF IMAGES BY GENERATIVE ADVERSARIAL NETWORKS\par}
+		\vspace{4.5cm}
+		\begin{flushright}
+			\large Master's thesis submitted for the \par degree of Master of Science in \par Master of Psychology: Theory and \par Research by \par
+			{\large\bfseries Amar Music \par}
+			\vspace{1cm}
+			{\large Supervisor: Prof. Johan Wagemens\par}
+			{\large Co-supervisor: Dr. Derya Soydaner\par}
+			{\large Daily advisor: Anne-Sofie Maerten\par}
+		\end{flushright}
+		\vfill
+		{\large 2022\par}
+	\end{titlepage}
+
+	\pagenumbering{arabic}
+	
+%	\begin{titlepage}
+%		\centering
+%		{\huge\bfseries Beautification of Images by Generative Adversarial Networks\par}
+%		\vspace{1cm}
+%		{\Large\itshape Amar Music\par}
+%		Master of Psychology: Theory and Research\par
+%		\vspace{0.5cm}
+%		{\scshape\large KU Leuven\par}
+%		Faculty of Psychology and Educational Sciences\par
+%		\vfill
+%		\large Supervisor: Prof. Johan Wagemens\par
+%		\large Co-supervisor: Dr. Derya Soydaner\par
+%		\large Daily advisor: Anne-Sofie Maerten\par
+%		{\large \today\par}
+%	\end{titlepage}
 	
 	
 	\subfile{chapters/abstract/abstract}
+	\pagebreak
+	
+	\subfile{chapters/contribution/contribution}
 	\pagebreak
 	
 	\tableofcontents
@@ -106,5 +155,8 @@
 	\pagebreak
 	
 	\subfile{chapters/appendix/appendix}
+	
+	\newpage \pagenumbering{gobble} \ 
+	\newpage \ 
 	
 \end{document}
