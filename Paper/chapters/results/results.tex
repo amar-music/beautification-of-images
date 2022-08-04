@@ -5,7 +5,7 @@
 \section{Results}
 
 \subsection{Pilot}
-We conducted a preliminary pilot version of the experiment to find reasonable variables to use for the final experiment. The pilot consisted of 10 participants who completed a version of the experiment with three seeds for each image and 21 $\alpha$-levels. With a Generalized Linear Model (GLM), we concluded that there was no effect of seed ($p=.38$). With a visual inspection of the effects of $\alpha$-value on agreement, we removed $\alpha$-values that appeared redundant in showing the relation in order to have better measurements for the useful values.
+We conducted a preliminary pilot version of the experiment to find reasonable variables to use for the final experiment. The pilot consisted of 10 participants who completed a version of the experiment with three seeds for each image and 21 $\alpha$-levels. With a Generalized Linear Model (GLM), we concluded that there was no effect of seed ($p=.38$). With a visual inspection on the effects of $\alpha$-values on agreement, we decided to remove $\alpha$-values that appeared redundant in showing the relation in order to have better measurements for the useful values.
 
 \subsection{Participants}
 After removing participants that did not satisfy the criteria listed above, our total number of participants was 542 ($M_{age}=31.17, \ SD_{age}=11.00, \ 234$ female) from 44 countries across the world. 
@@ -64,7 +64,7 @@ To test the effect of different $\alpha$-values on image preference, we fitted a
 
 We found a difference between the rating of high-$|\alpha|$ images for positive and negative $\alpha$-values (Figure~\ref{fig:psychometric_curves}b). People tend to agree more with GANalyze when it generates images that are supposed to be of lower aesthetic value. This difference is especially pronounced for the extreme variations. A quadratic multiple regression with the predictors $|\alpha|$, $|\alpha|^2$, and dummy variable \texttt{positive} explained 95\% of the observed variance ($R^2=.95, F(3,10)=90.59, p<.001$). $|\alpha|$ and $|\alpha|^2$ both significantly predicted the proportion agreement with GANalyze ($\beta=3.87, p<.001; \beta=-10.03, p<.001$). The \texttt{positive} variable was also significant ($\beta=-0.05, p=.011$), indicating an asymmetry in the appreciation of the generated high- and low-aesthetic images. We also fitted a cubic multiple regression model, though the better fit could not be justified by the addition of another polynomial to the equation ($p=0.088$).
 
-A two-way ANOVA with as factors the broad category labels and the position of the higher-$\alpha$ image revealed that there was no effect of broad category, $F(7,215)=0.009, \ p=1$, and no effect of stimulus position, $F(1,215)=0.000, \ p=.99$.
+A two-way analysis of variance with as factors the broad category labels and the position of the higher-$\alpha$ image revealed that there was no effect of broad category, $F(7,215)=0.009, \ p=1$, and no effect of stimulus position, $F(1,215)=0.000, \ p=.99$.
 
 \begin{figure}[!t]
 	\caption{Image Features}

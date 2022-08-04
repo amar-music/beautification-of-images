@@ -32,7 +32,7 @@ From a peak shift perspective, it does not make sense that our participants show
 It is also possible that the asymmetry was caused by the stimuli themselves rather than human perception. Inspecting the trajectories of the contrast and sharpness in Figure~\ref{fig:img_features}, shows that their effects slow down for the high positive $\alpha$-values. This could be the reason for these particular images not being rated much higher than those of adjacent lower $\alpha$-values. Why exactly GANalyze reduced the effects of contrast and sharpness is unclear. Perhaps the GAN had actually learned that unrealistic images with extreme image features are not appraised positively and therefore reduced the effects of contrasts and sharpness. But this hypothetical compensation seems not to have been very effective, as the extreme high $\alpha$-images are still rated lower than expected.
 
 % Future studies on parameters
-Further research can potentially test this theory by grouping image sequences based on the intensities of contrast and sharpness of high-$\alpha$ images. This way, it could be possible to find out whether the compensatory moderation of contrast and sharpness indeed results in images of higher aesthetic quality.
+Further research can potentially test this theory by grouping image sequences based on the intensities of contrast and sharpness of high-$\alpha$ images. This way, it could be possible to find out whether the compensatory moderation of contrast and sharpness indeed results in images of higher aesthetic quality. Another possibility is the influence of higher-order factors not captured by the low-level image features we investigated. Harmony and balance for example, while not directly represented in any of the low-level features themselves, may be disturbed by extremely high contrast and sharpness. It is possible that GANalyze has learned to prioritize these higher-level features over the low-level features separately.
 
 
 
@@ -59,13 +59,13 @@ We have reasons to believe that instead of simply increasing these parameters, G
 
 
 \subsubsection{Limitations}
-One limitation of our study is that it was limited to natural looking images being compared to a slightly different variation of themselves. Beauty and art are more than just a combination of low-level image features and colors. To expand on the studies on aesthetics using GANalyze, future studies could use our stimuli to compare images from different image sequences to each other. As we have on average 20 ratings per individual image, it should be possible to compute the aesthetic value of each image and then compare images from different sequences with a similar score. This way, it may be possible to find more sophisticated features underlying the aesthetic value of these images, like for example image composition parameters such as the rule of thirds, and principles from Gestalt psychology such as symmetry.
+One limitation of our study is that it was limited to natural looking images being compared to a slightly different variation of themselves. Beauty and art are more than just a combination of low-level image features and colors. To expand on the studies on aesthetics using GANalyze, future studies could use our stimuli to compare images from different image sequences to each other. As we have on average 20 ratings per individual image, it should be possible to compute the aesthetic value of each image and then compare images from different sequences with a similar score. This way, it may be possible to find more sophisticated features underlying the aesthetic value of these images, like for example image composition parameters such as the rule of thirds, or principles from Gestalt psychology such as symmetry, figure-ground segmentation, and the relative convexity and sharpness of the central object compared to the background.
 
 Another limitation is that we approached this mainly from the perspective of objective beauty. We did not pay much attention to individual differences in aesthetic appraisal other than broadly comparing effects demographic variables on the agreement with GANalyze. As it is believed that our perception of beauty is an interaction between subjective and objective variables, it may prove beneficial to conduct a deeper investigation into the subjective part of the equation of beauty.
 
 %\subsubsection{(temp) Philosophical Implications}
 % Refer to introduction
 
-
+% Talk about the processing fluency theory mentioned in the introduction
 
 \end{document}
