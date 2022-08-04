@@ -1,3 +1,0 @@
-place "stimuli" folder in jdPsych_ImageRating
-
-https://drive.google.com/file/d/1pAnw6rDYckCwS1FMwUsGHwq3eZoyNMm2/view?usp=sharing
