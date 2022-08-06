@@ -1,5 +1,5 @@
 #### Statistics ####
-
+library("apaTables")
 # IDEA
 # Split the dataframe in positive and negative alphas
 # Take abs() of negative df
@@ -35,25 +35,64 @@ qps_fit.asym$parcomparisons
 
 
 
-# Planned contrasts -------------------------------------------------------
-aov1 <- aov(acc ~ alpha, dfan)
-Anova(aov1, type="III")
-plot(dfa$acc ~ abs(dfa$alpha))
 
-model <- lm(acc ~ abs(alpha), data = dfa)
+# Polynomial regression ---------------------------------------------------
 
-ggplot(dfa, aes(abs(alpha), acc, group=positive, col=as.factor(positive))) +
-  geom_point() +
-  stat_smooth(method="lm", formula = y ~ poly(x, 2, raw=TRUE))
-
-poly_reg <- lm(acc ~ poly(abs(alpha), 2, raw = TRUE) + positive, data = dfa)
-summary(poly_reg)
+## Simplified dataframe ----
+dfa.short <- dfa %>%
+  subset(select = c("acc", "alpha", "positive")) %>%
+  mutate_at('positive', as.factor) %>%
+  mutate(alpha = abs(alpha))
 
 
-poly_reg2 <- lm(acc ~ poly(abs(alpha), 3, raw = TRUE) + positive, data = dfa)
-summary(poly_reg2)
+## Quadratic regression ----
+quad_reg <- lm(acc ~ poly(alpha, 2, raw = TRUE) + positive, data = dfa.short)
+summary(quad_reg)
 
-anova(poly_reg, poly_reg2)
+## Cubic regression ----
+cubic_reg <- lm(acc ~ poly(alpha, 3, raw = TRUE) + positive, data = dfa.short)
+summary(cubic_reg)
+
+## Model comparison ----
+anova(quad_reg, cubic_reg)
+
+## APA tables ----
+apa.reg.table(quad_reg)
+apa.reg.table(cubic_reg)
+
+
+
+df.shuffled <- dfa.short[sample(nrow(dfa.short)),]
+k_folds <- 10
+p_degrees <- 5
+
+folds <- cut(seq(1,nrow(df.shuffled)),breaks=k_folds,labels=FALSE)
+mse = matrix(data=NA,nrow=k_folds,ncol=p_degrees)
+
+
+for(i in 1:k_folds){
+  
+  #define training and testing data
+  testIndexes <- which(folds==i,arr.ind=TRUE)
+  testData <- df.shuffled[testIndexes, ]
+  trainData <- df.shuffled[-testIndexes, ]
+  
+  #use k-fold cv to evaluate models
+  for (j in 1:p_degrees){
+    fit.train = lm(acc ~ poly(abs(alpha), j) + positive, data=trainData)
+    fit.test = predict(fit.train, newdata=testData)
+    mse[i,j] = mean((fit.test-testData$acc)^2) 
+  }
+}
+
+colMeans(mse)
+
+plot(colMeans(mse), type='h', lwd=10)
+
+ggplot(dfa.short, aes(x=alpha, y=acc, col=positive)) +
+  geom_point()
+
+
 ##
 
 barplot(by(data=df$cor, INDICES = df$age, FUN = mean))
