@@ -54,4 +54,4 @@ for i in cat:
     iter += 1
     image = col_dist(path + current_img)
     col_dict = {"red": image[0], "green": image[1], "blue": image[2], "cat":cat_no, "alpha":alpha}
-    pd.DataFrame(col_dict).to_csv("image_distributions/colors_cat" + str(cat_no) + "_" + str(current_img[11:-4]) + ".csv", index=False)
+    pd.DataFrame(col_dict).to_csv("../extraction/color_distributions/colors_cat" + str(cat_no) + "_" + str(current_img[13:-4]) + ".csv", index=False)
