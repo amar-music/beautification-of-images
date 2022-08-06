@@ -147,11 +147,10 @@ ggsave(
 
 ## Color distributions ----
 ggplot(tbl, aes(x=value, col=key, group_by=alpha)) +
-  #geom_histogram(position="identity", alpha = 0.8,  bins=512) +
   geom_freqpoly(stat="bin", position="identity", bins=1024, alpha = 0.6) +
   geom_freqpoly(aes(group=key),col="black", bins=257, lwd=0.2) +
-  #scale_color_manual(values=c(red="#ff0000", green="#00ff00", blue="#0000ff")) +
   xlim(0, 256) +
+  #ylim(0, 3500) +
   labs(
     x = "Pixel Intensity",
     y = "Count"
@@ -180,7 +179,7 @@ ggsave(
   path = '../Paper/images/results',
   scale = 1,
   width = 18,
-  height = 10,
+  height = 16,
   units = "cm",
   dpi = 300,
   limitsize = TRUE,
