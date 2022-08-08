@@ -21,3 +21,4 @@ Data Analysis/extraction/demographic.csv
 *.aux
 Paper/main.pdf
 Data Analysis/filter_participants_notes.txt
+*Paper/
