@@ -1,7 +1,9 @@
 #### IDENTIFY BAD PARTICIPANTS ####
+library("readr")
+library("dplyr")
 
 # Load and clean dataframe ------------------------------------------------
-df <- read_csv('extraction/test4.csv')
+df <- read_csv('extraction/exp_data.csv')
 names(df)[c(1, 8, 9, 11, 12, 13, 16)] <- c(
   'trial', 'base', 'img', 'c_key', 'u_key', 'cor', 'sub')
 df$diff <- abs(df$alpha) # difference as number
@@ -27,8 +29,6 @@ df <- df %>%
   mutate(c_key = replace(c_key, c_key == 'j', 1))
 df$c_key <- as.integer(df$c_key)
 
-## Single out one subject ----
-df <- df[df$sub == '611d1134bcc4eda812acf219',]
 
 
 # Find bad participants ---------------------------------------------------

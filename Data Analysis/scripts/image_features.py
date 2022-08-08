@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image, ImageFilter, ImageStat, ImageColor
 import pandas as pd
 
-RUN = False
+RUN = True
 
 #### Functions
 # Edge detection scoring

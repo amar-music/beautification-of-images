@@ -5,8 +5,6 @@ import pandas as pd
 import re
 
 
-RUN = False
-
 def col_dist(img):
     image = Image.open(img)
     rgb_image = image.convert("RGB")
@@ -32,11 +30,6 @@ def natural_sort_key(s):
 # Load all images in folder
 path = "../../jsPsych_ImageRating/stimuli/"
 images = list(os.listdir(path))
-
-# Select subset of images depending on alpha value
-img0 = list(filter(lambda x: "img0" in x, images))
-img100 = list(filter(lambda x: "img100" in x, images))
-img200 = list(filter(lambda x: "img200" in x, images))
 
 
 # Select category
