@@ -6,7 +6,6 @@ library("ggplot2")
 library("ggpubr")
 library("jtools")
 library("dplyr")
-library("ggplot2")
 library("tidySEM")
 library("corrplot")
 library("psych")
@@ -32,16 +31,18 @@ alphas = c(-0.25, -0.20, -0.15, -0.10, -0.05, -0.015, -0.0025,
 
 # Load and clean dataframe ------------------------------------------------
 df <- read_csv('extraction/exp_data.csv')
-demographics <- read_csv('extraction/demographic.csv')
-demographics_subjects <- subset(demographics, select = c('participant_id', 'age', 'Nationality', 'Sex'))
-names(demographics_subjects) <- c('subject_id', 'age', 'nationality', 'sex')
-df <- merge(df, demographics_subjects, by='subject_id')
+#demographics <- read_csv('extraction/demographic.csv')
+#demographics_subjects <- subset(demographics, select = c('participant_id', 'age', 'Nationality', 'Sex'))
+#names(demographics_subjects) <- c('subject_id', 'age', 'nationality', 'sex')
+#df <- merge(df, demographics_subjects, by='subject_id')
 
 
 # Select only trails from 1 seed version ----
 #df <- df[25920:(nrow(df)),]
-names(df)[c(1, 2, 9, 10, 12, 13, 14)] <- c(
-  'sub', 'trial', 'base', 'img', 'c_key', 'u_key', 'cor')
+#names(df)[c(1, 2, 9, 10, 12, 13, 14)] <- c(
+#  'sub', 'trial', 'base', 'img', 'c_key', 'u_key', 'cor')
+names(df)[c(1, 8, 9, 11, 12, 13, 16)] <- c(
+  'trial', 'base', 'img', 'c_key', 'u_key', 'cor', 'sub')
 df$diff <- abs(df$alpha) # difference as number
 
 df$aeq_total <- (df$emotional + df$cultural + df$perceptual + df$understanding
@@ -141,11 +142,11 @@ dfa.cont <- df.cont %>%
 
 
 
-df_participants <- df %>%
-  group_by(sub) %>%  
-  summarize(m_age = mean(age),
-            sd_age = sd(age),
-            sex = dplyr::first(sex))
+#df_participants <- df %>%
+#  group_by(sub) %>%  
+#  summarize(m_age = mean(age),
+#            sd_age = sd(age),
+#            sex = dplyr::first(sex))
 
 
 
@@ -185,8 +186,8 @@ df4a <- gather(df4a, key=feature, value = score,
                c("contrast", "edges", "brightness", "saturation"))
 
 
-
-
+## Dataframe for plot image features per category
+# PASTE HERE
 
 # Color distributions -----------------------------------------------------
 selected_alphas <- c(-0.25, -0.1, 0, 0.1, 0.25)
