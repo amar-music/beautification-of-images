@@ -73,7 +73,7 @@ ggplot(df.cat_total_gather, aes(x=alpha, group=feature, col=feature)) +
     y = "Proportion Choosing Non-Neutral Image"
   ) +
   #facet_wrap(~cat_no) + 
-  geom_vline(xintercept=0, linetype=2) +
+  #geom_vline(xintercept=0, linetype=2) +
   theme(
     #strip.text.x = element_text(size=12, color='#414141', margin=margin(b=8)),
     strip.text.x = element_blank(),
