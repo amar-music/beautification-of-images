@@ -35,6 +35,7 @@ df <- read_csv('extraction/exp_data.csv')
 #demographics_subjects <- subset(demographics, select = c('participant_id', 'age', 'Nationality', 'Sex'))
 #names(demographics_subjects) <- c('subject_id', 'age', 'nationality', 'sex')
 #df <- merge(df, demographics_subjects, by='subject_id')
+df.FID <- read.csv("extraction/FIDdf.csv")
 
 
 # Select only trails from 1 seed version ----
