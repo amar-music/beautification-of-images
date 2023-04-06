@@ -1,14 +1,15 @@
 #### Image Features ####
+library(scales)
 
 ## Create df across ImageNet categories and summarize aes
 ftrs <- df4 %>% 
   inner_join(subset(df, select=c(cat_no, img, cor, sub, positive)), 
              by=c("cat"="cat_no", "img"="img")) %>%
   mutate(cor = if_else(positive == 0, 1-cor, cor)) %>%
-  mutate(brightness=c(scale(brightness_score)),
-         contrast=c(scale(contrast_score)),
-         edges=c(scale(edge_score)),
-         saturation=c(scale(saturation_score))) %>%
+  mutate(brightness=(rescale(brightness_score)),
+         contrast=(rescale(contrast_score)),
+         edges=(rescale(edge_score)),
+         saturation=(rescale(saturation_score))) %>%
   select(cat, img, brightness, contrast, edges, saturation, cor) %>%
   group_by(brightness, contrast, edges, saturation) %>%
   summarize(aes=mean(cor))
@@ -21,8 +22,8 @@ ftrs.long <- ftrs %>%
 ## Plot effect of image features on outcome aes
 ggplot(ftrs.long, aes(x=score, y=aes, col=feature)) +
   ylim(0, 1) +
-  geom_smooth(method="lm") +
-  #geom_smooth(method="glm", method.args=list(family=quasibinomial)) +
+  #geom_smooth(method="lm") +
+  geom_smooth(method="glm", method.args=list(family=quasibinomial)) +
   facet_grid(.~feature) +
   theme(
     strip.text.x = element_text(size=12, color='#414141', margin=margin(b=8)),
@@ -43,4 +44,52 @@ summary(model1)
 ## Quasibinomial logistic regression (check if this a correct approach)
 model2 <- glm(aes ~ brightness + contrast + edges + saturation, data=ftrs, family=quasibinomial)
 summary(model2)
+
+
+
+# Mid-level ---------------------------------------------------------------
+## Create df across ImageNet categories and summarize aes
+ftrs2 <- df5 %>% 
+  inner_join(subset(df, select=c(cat_no, img, cor, sub, positive)), 
+             by=c("cat"="cat_no", "img"="img")) %>%
+  mutate(cor = if_else(positive == 0, 1-cor, cor)) %>%
+  mutate(brightness=(rescale(brightness)),
+         visual_complexity=(rescale(visual_complexity)),
+         symmetry=(rescale(symmetry)),
+         colorfulness=(rescale(colorfulness))) %>%
+  select(cat, img, brightness, visual_complexity, symmetry, colorfulness, cor) %>%
+  group_by(brightness, visual_complexity, symmetry, colorfulness) %>%
+  summarize(aes=mean(cor))
+
+# Long df
+ftrs2.long <- ftrs2 %>%
+  pivot_longer(cols=c(brightness, visual_complexity, symmetry, colorfulness), names_to=c("feature"), values_to="score")
+
+
+## Plot effect of image features on outcome aes
+ggplot(ftrs2.long, aes(x=score, y=aes, col=feature)) +
+  ylim(0, 1) +
+  #geom_smooth(method="lm") +
+  geom_smooth(method="glm", method.args=list(family=quasibinomial)) +
+  facet_grid(.~feature) +
+  theme(
+    strip.text.x = element_text(size=12, color='#414141', margin=margin(b=8)),
+    strip.background = element_rect(fill=NA),
+    axis.title.x = element_text(size=12, color='#414141', margin=margin(t=8)),
+    axis.title.y = element_text(size=12, color='#414141', margin=margin(r=8)),
+    axis.ticks = element_line(color='#414141'),
+    panel.border = element_rect(color='#414141', fill=NA),
+    panel.background = element_rect(fill=NA),
+    legend.position = "none",
+    axis.text=element_text(size=9, color='#414141')
+  )
+
+## Linear regression for predicting aes based on image features
+model1 <- lm(aes ~ brightness + visual_complexity + symmetry + colorfulness, data=ftrs2)
+summary(model1)
+
+## Quasibinomial logistic regression (check if this a correct approach)
+model2 <- glm(aes ~ brightness + visual_complexity + symmetry + colorfulness, data=ftrs2, family=quasibinomial)
+summary(model2)
+
 

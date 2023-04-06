@@ -144,6 +144,33 @@ ggsave(
 )
 
 
+## Image features ----
+feature_names2 <- c(
+  'visual_complexity' = "Visual Complexity",
+  'symmetry' = "Symmetry"
+)
+
+ggplot(df5a, aes(x=alpha, y = score, group = feature, color = feature)) + 
+  geom_smooth(lwd=1, method='gam') +
+  ylim(c(-2.5, 2.5)) +
+  facet_grid(~feature, labeller = as_labeller(feature_names2)) +
+  labs(
+    x = expression(paste(alpha, '-value')),
+    y = "Standardized Score"
+  ) +
+  theme(
+    strip.text.x = element_text(size=12, color='#414141', margin=margin(b=8)),
+    strip.background = element_rect(fill=NA),
+    axis.title.x = element_text(size=12, color='#414141', margin=margin(t=8)),
+    axis.title.y = element_text(size=12, color='#414141', margin=margin(r=8)),
+    axis.ticks = element_line(color='#414141'),
+    panel.border = element_rect(color='#414141', fill=NA),
+    panel.background = element_rect(fill=NA),
+    legend.position = "none",
+    axis.text=element_text(size=9, color='#414141')
+  )
+
+
 
 ## Color distributions ----
 ggplot(tbl, aes(x=value, col=key, group_by=alpha)) +

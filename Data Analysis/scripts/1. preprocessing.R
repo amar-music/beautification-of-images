@@ -187,6 +187,41 @@ df4a <- gather(df4a, key=feature, value = score,
                c("contrast", "edges", "brightness", "saturation"))
 
 
+# Dataframes for mid-level features -------------------------------------------
+df5 <- read_csv('extraction/mid-level_features.csv')
+
+df5a <- df5 %>% 
+  select(cat, img, visual_complexity, symmetry) %>%
+  group_by(img) %>%  
+  summarize(m_visual_complexity = mean(visual_complexity), 
+            m_symmetry = mean(symmetry)) %>%
+  mutate(alpha = alphas)
+
+df5a$visual_complexity <- scale(df5a$m_visual_complexity)
+df5a$symmetry <- scale(df5a$m_symmetry)
+
+df5a <- gather(df5a, key=feature, value = score, 
+               c("visual_complexity", "symmetry"))
+
+#df5 <- read_csv('extraction/mid-level_features.csv')
+#
+# df5a <- df5 %>% 
+#   group_by(img) %>%  
+#   summarize(m_brightness = mean(brightness),
+#             m_visual_complexity = mean(visual_complexity),
+#             m_symmetry = mean(symmetry),
+#             m_colorfulness = mean(colorfulness)) %>%
+#   mutate(alpha = alphas)
+# 
+# df5a$brightness <- scale(df5a$m_brightness)
+# df5a$visual_complexity <- scale(df5a$m_visual_complexity)
+# df5a$symmetry <- scale(df5a$m_symmetry)
+# df5a$colorfulness <- scale(df5a$m_colorfulness)
+# 
+# df5a <- gather(df5a, key=feature, value = score, 
+#                c("brightness", "visual_complexity", "symmetry", "colorfulness"))
+
+
 ## Dataframe for plot image features per category
 # PASTE HERE
 
