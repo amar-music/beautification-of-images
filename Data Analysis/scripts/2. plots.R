@@ -17,7 +17,7 @@ ggplot(dfa, aes(x = alpha, y = acc)) +
 ggplot(dfa.cont, aes(x=alpha, y=acc)) +
   geom_errorbar(data=dfa.cont, aes(x = alpha, ymin = lower_ci, ymax = upper_ci), width=0, lwd=0.25) + 
   geom_point(data = dfa.cont, aes(x=alpha, y=acc, col=as.factor(positive))) +
-  geom_line(data = qps_fit.asym$curves, aes(x = x, y = y, col=positive), size=1, key_glyph = 'point') +
+  #geom_line(data = qps_fit.asym$curves, aes(x = x, y = y, col=positive), size=1, key_glyph = 'point') +
   annotate('text', x=-0.25, y=1, label='(a)') +
   scale_color_manual(labels=c(expression(paste('negative ', alpha)), expression(paste('positive ', alpha))), values=c('#F8766D', '#00BFC4')) +
   ylim(c(0, 1)) +
@@ -170,6 +170,52 @@ ggplot(df5a, aes(x=alpha, y = score, group = feature, color = feature)) +
     axis.text=element_text(size=9, color='#414141')
   )
 
+
+
+## Image features
+## Image features ----
+feature_names <- c(
+  'brightness' = "Brightness",
+  'contrast' = "Contrast",
+  'edges' = "Sharpness",
+  'saturation' = "Saturation",
+  'colorfulness' = "Colorfulness",
+  'visual_complexity' = "Visual Complexity",
+  'symmetry' = "Symmetry"
+)
+
+ggplot(all_features.a, aes(x=alpha, y = score, group = feature, color = feature)) + 
+  geom_smooth(lwd=1, method='gam') +
+  ylim(c(-2.5, 2.5)) +
+  facet_grid(~feature, labeller = as_labeller(feature_names)) +
+  labs(
+    x = expression(paste(alpha, '-value')),
+    y = "Standardized Score"
+  ) +
+  theme(
+    strip.text.x = element_text(size=12, color='#414141', margin=margin(b=8)),
+    strip.background = element_rect(fill=NA),
+    axis.title.x = element_text(size=12, color='#414141', margin=margin(t=8)),
+    axis.title.y = element_text(size=12, color='#414141', margin=margin(r=8)),
+    axis.ticks = element_line(color='#414141'),
+    panel.border = element_rect(color='#414141', fill=NA),
+    panel.background = element_rect(fill=NA),
+    legend.position = "none",
+    axis.text.x=element_text(size=8, angle=45, vjust=1, hjust=1, color='#414141')
+  )
+ggsave(
+  'img_features_all.png',
+  plot = last_plot(),
+  device = 'png',
+  path = '../Paper/images/results',
+  scale = 1,
+  width = 16,
+  height = 7,
+  units = "cm",
+  dpi = 300,
+  limitsize = TRUE,
+  bg = NULL
+)
 
 
 ## Color distributions ----

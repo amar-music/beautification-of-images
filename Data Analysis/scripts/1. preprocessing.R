@@ -14,6 +14,7 @@ library("lavaan.survey")
 library("quickpsy")
 library("tidyr")
 library("purrr")
+library("scales")
 
 
 ## Load functions ----
@@ -36,7 +37,6 @@ df <- read_csv('extraction/exp_data.csv')
 #names(demographics_subjects) <- c('subject_id', 'age', 'nationality', 'sex')
 #df <- merge(df, demographics_subjects, by='subject_id')
 df.FID <- read.csv("extraction/FIDdf.csv")
-
 
 # Select only trails from 1 seed version ----
 #df <- df[25920:(nrow(df)),]
@@ -75,6 +75,9 @@ df <- df %>%
     alpha > 0 ~ 1
   ))
 df$positive <- as.factor(df$positive)
+
+
+
 
 
 df.cont <- df
@@ -203,6 +206,32 @@ df5a$symmetry <- scale(df5a$m_symmetry)
 df5a <- gather(df5a, key=feature, value = score, 
                c("visual_complexity", "symmetry"))
 
+## All features df
+all_features <- left_join(df4, df5, by=join_by(cat, img)) %>%
+  select(-brightness)
+
+all_features.a <- all_features %>% 
+  group_by(img) %>%  
+  summarize(m_edge = mean(edge_score),
+            m_contrast = mean(contrast_score),
+            m_brightness = mean(brightness_score),
+            m_saturation = mean(saturation_score),
+            m_colorfulness = mean(colorfulness),
+            m_visual_complexity = mean(visual_complexity),
+            m_symmetry = mean(symmetry)) %>%
+  mutate(alpha = alphas)
+
+all_features.a$edges <- scale(all_features.a$m_edge)
+all_features.a$contrast <- scale(all_features.a$m_contrast)
+all_features.a$brightness <- scale(all_features.a$m_brightness)
+all_features.a$saturation <- scale(all_features.a$m_saturation)
+all_features.a$colorfulness <- scale(all_features.a$m_colorfulness)
+all_features.a$visual_complexity <- scale(all_features.a$m_visual_complexity)
+all_features.a$symmetry <- scale(all_features.a$m_symmetry)
+
+all_features.a <- gather(all_features.a, key=feature, value = score, 
+               c("contrast", "edges", "brightness", "saturation", "colorfulness", "visual_complexity", "symmetry"))
+  
 #df5 <- read_csv('extraction/mid-level_features.csv')
 #
 # df5a <- df5 %>% 
