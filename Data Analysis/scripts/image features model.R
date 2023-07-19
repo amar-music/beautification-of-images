@@ -1,5 +1,6 @@
 #### Image Features ####
 library(scales)
+library(glmnet)
 
 # All features ------------------------------------------------------------
 ## Create df across ImageNet categories and summarize aes
@@ -77,6 +78,7 @@ corrplot(cor(ftrs))
 
 cor(ftrs$colorfulness, ftrs$saturation)
 
+
 ## Quasibinomial logistic regression (check if this a correct approach)
 model2 <- glm(aes ~ brightness + contrast + edges + saturation + colorfulness + symmetry + visual_complexity, data=ftrs, family=quasibinomial)
 summary(model2)
@@ -99,3 +101,99 @@ cor(all_features$visual_complexity, ftrs$visual_complexity)
 
 length(all_features$visual_complexity)
 length(ftrs$visual_complexity)
+
+
+
+
+## Test for multicollinearity
+vif(lm.all)   # VIF scores are around 4 for many predictors, indicating moderate correlation
+
+
+
+
+## Ridge regression
+y.ridge <- ftrs$aes
+x.ridge <- data.matrix(ftrs[,c('brightness', 'contrast', 'edges', 'saturation', 'colorfulness', 'symmetry', 'visual_complexity')])
+
+# Range of lambda values
+lambda_seq <- seq(0, 10, by=.1)
+
+
+# Fit model
+fit.ridge <- glmnet(x.ridge, y.ridge, alpha=0, lambda=lambda_seq)
+summary(fit.ridge)
+
+
+# Cross-validation
+ridge_cv <- cv.glmnet(x.ridge, y.ridge, alpha=0, lambda=lambda_seq)
+
+# Best lambda
+best_lambda <- ridge_cv$lambda.min
+best_lambda    # Best lambda appears to be very low, therefore low penalty
+plot(ridge_cv)
+
+
+
+y_predicted <- predict(fit.ridge, s=0, newx=x.ridge)
+sst <- sum(y.ridge^2)
+sse <- sum((y_predicted - y.ridge)^2)
+
+# R^2
+rsq <- 1 - sse / sst
+rsq
+#
+
+coef(fit.ridge)
+
+
+
+
+
+
+
+
+
+# ridge.model <- glmnet(x.ridge, y.ridge, alpha=0)
+# summary(ridge.model)
+# 
+# cv_model <- cv.glmnet(x.ridge, y.ridge, alpha=0)
+# best_lambda <- cv_model$lambda.min
+# best_lambda
+
+
+
+fit.ridge2 <- ridge(y.ridge, x.ridge, data=ftrs, lambda=lambda_seq)
+coef(fit.ridge2)
+traceplot(fit.ridge2)
+plot(fit.ridge2)
+pairs(fit.ridge2)
+
+
+
+
+
+# plot(cv_model)
+# 
+# 
+# # Find coefficiencts of the best model
+# best_ridge <- glmnet(x.ridge, y.ridge, alpha=0, lambda=best_lambda)
+# coef(best_ridge)
+# 
+# 
+# 
+# #use fitted best model to make predictions
+# y_predicted <- predict(best_ridge, s = best_lambda, newx = x.ridge)
+# 
+# #find SST and SSE
+# sst <- sum((y.ridge - mean(y.ridge))^2)
+# sse <- sum((y_predicted - y.ridge)^2)
+# 
+# #find R-Squared
+# rsq <- 1 - sse/sst
+# rsq
+
+
+
+
+
+

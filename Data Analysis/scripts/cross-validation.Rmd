@@ -1,0 +1,168 @@
+---
+title: "Cross-Validation"
+output:
+  pdf_document: default
+  html_document: default
+date: "2023-07-11"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE}
+library("readr")
+library("dplyr")
+library("caret")
+```
+
+# Preprocessing
+
+## Load data
+
+```{r}
+all_features <- read_csv('../extraction/all_features.csv', show_col_types=FALSE)
+df <- read_csv('../extraction/clean_df.csv', show_col_types=FALSE)
+```
+
+## Create dataframe
+
+```{r, message=FALSE}
+df_cv <- all_features %>%
+  inner_join(subset(df, select=c(cat_no, img, cor, sub, positive)), 
+             by=c("cat"="cat_no", "img"="img")) %>%
+  mutate(cor = if_else(positive == 0, 1-cor, cor)) %>%
+  mutate(brightness=brightness_score,
+         contrast=contrast_score,
+         edges=edge_score,
+         saturation=saturation_score,
+         visual_complexity=visual_complexity,
+         symmetry=symmetry,
+         colorfulness=colorfulness) %>%
+  group_by(brightness, contrast, edges, saturation, 
+           visual_complexity, symmetry, colorfulness) %>%
+  summarize(aes=mean(cor))
+```
+
+## Train-test split
+
+```{r}
+set.seed(0) 
+index = sample(1:nrow(df_cv), 0.8*nrow(df_cv)) 
+
+train <- df_cv[index,]
+test <- df_cv[-index,]
+
+# Check dimensions
+dim(train)
+dim(test)
+```
+
+80-20 split for train-test.
+
+# Modeling
+
+## Create functions for evaluation metrics
+
+```{r}
+# Adjusted R2 and RMSE for linear model
+eval_linear = function(model, df, predictions, target){
+  resids = df[,target] - predictions
+  resids2 = resids**2
+  N = length(predictions)
+  r2 = as.character(round(summary(model)$r.squared, 4))
+  adj_r2 = as.character(round(summary(model)$adj.r.squared, 4))
+  print(paste(adj_r2, "(Adjusted R2)")) 
+  print(paste(as.character(round(sqrt(sum(resids2)/N), 4)), "(RMSE)"))
+}
+
+# R2 and RMSE for ridge model
+eval_ridge <- function(true, predicted, df) {
+  SSE <- sum((predicted - true)^2)
+  SST <- sum((true - mean(true))^2)
+  R_square <- round((1 - SSE / SST), 4)
+  RMSE = round(sqrt(SSE/nrow(df)), 4)
+  print(paste(R_square, "(R2)"))
+  print(paste(RMSE, "(RMSE)"))
+}
+```
+
+## Linear model
+
+```{r}
+# Build linear model
+lr <- lm(aes ~ brightness + contrast + edges + saturation + 
+           colorfulness + symmetry + visual_complexity, data=train)
+summary(lr)
+
+# Evaluate with train-test split
+## Train
+predictions <- predict(lr, newdata=train)
+eval_linear(lr, train, predictions, target='aes')
+
+## Test
+predictions <- predict(lr, newdata=test)
+eval_linear(lr, test, predictions, target='aes')
+```
+
+Simple linear model on only the train set produces near identical results to the regression on the full dataset used in the paper. Using a train and test set allows us to evaluate the RMSE for the predictive model. An RMSE of 0.21 means that on average, the model will make an error of 0.21 (where the full range of the target is [0, 1]) when predicting the aesthetic value of an image based solely on the selected features.
+
+In addition, the R2 and RMSE are very similar for the train and test sets, indicating that no overfitting has occurred.
+
+## Ridge regression
+
+```{r}
+# Build the ridge model and find optimal lambda
+
+# Create vector with column names
+cols_reg <- c('brightness', 'contrast', 'edges', 'saturation', 
+              'colorfulness', 'symmetry', 'visual_complexity', 'aes')
+dummies <- dummyVars(aes ~ ., data=df_cv[,cols_reg])
+
+## Train-test split
+train_dummies <- predict(dummies, newdata=train[,cols_reg])
+test_dummies <- predict(dummies, newdata=test[,cols_reg])
+
+## Check dimensions
+print(dim(train_dummies)); print(dim(test_dummies))
+
+
+# Build ridge regression model
+library(glmnet)
+
+X <- as.matrix(train_dummies)
+y_train <- train$aes
+
+X_test <- as.matrix(test_dummies)
+y_test <- test$aes
+
+# Define range of lambdas to test
+lambdas <- 10^seq(2, -3, by=-.1)
+ridge_reg <- glmnet(X, y_train, nlambda=25, alpha=0, 
+                    family='gaussian', lambda=lambdas)
+# summary(ridge_reg)
+
+# Find optimal lambda
+cv_ridge <- cv.glmnet(X, y_train, alpha=0, lambda=lambdas)
+optimal_lambda <- cv_ridge$lambda.min
+optimal_lambda
+
+```
+
+As the optimal value for lambda is close to 0, the punishing factor in the ridge regression will be very small and as a consequence, the ridge regression will not differ much from the OLS linear regression.
+
+## Evaluate ridge model
+
+```{r}
+# Train
+predictions_train <- predict(ridge_reg, s = optimal_lambda, newx = X)
+eval_ridge(y_train, predictions_train, train)
+
+# Test
+predictions_test <- predict(ridge_reg, s = optimal_lambda, newx = X_test)
+eval_ridge(y_test, predictions_test, test)
+```
+
+The ridge model has very similar values for R2 and RMSE as linear regression. This makes sense because the optimal lambda value was very low.
+
+Just as in the linear model, the ridge model also shows that the train and test performance are very close. This means that the ridge model is not overfitting either.
